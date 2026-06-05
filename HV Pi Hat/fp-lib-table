@@ -1,0 +1,10 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "HV_Footprints")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "SMHV0550 module, OPTO-100/OR-100 opto-relay"))
+  (lib (name "MHR0317SA107F70")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "HVM/Murata HV resistor"))
+  (lib (name "3372-BND0603JKRS001TR-ND")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "200R resistor"))
+  (lib (name "3372-CR0402FC300RS1TR-ND")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "300R resistor"))
+  (lib (name "TN0610N3_G_P013_Footprint")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "TO-92 MOSFET"))
+  (lib (name "4912-SHV-R-ND")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "SHV jack (slated for removal)"))
+  (lib (name "digikey-footprints")(type "KiCad")(uri "${KIPRJMOD}/HV_Pi_Hat.pretty")(options "")(descr "pin header (slated for removal)"))
+)

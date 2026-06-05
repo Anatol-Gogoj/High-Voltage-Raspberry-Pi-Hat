@@ -1,0 +1,104 @@
+(footprint "Resistor 200 O"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 3.1 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "828ff0f9-c0c3-4f44-b358-915dbe8a6f4d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "200"
+		(at 0 4.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "4857ff08-8bb8-445d-a71e-3a8cfb736414")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "~"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fc7c15e1-d310-4b54-b049-19d1787f5685")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Resistor, small US symbol"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8cbb4d7e-fdb7-43c0-bb61-960d5ea22f12")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_rect
+		(start -2.4 -1.2)
+		(end 2.4 1.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "f2b2ae4c-c6d0-4b34-8007-aa37c71e0abf")
+	)
+	(fp_rect
+		(start -2.6 -1.4)
+		(end 2.6 1.4)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "74b16d7d-a116-4894-992d-c2082959b393")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 6.1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "a12e04d2-66ad-4bca-a1f2-a3f23e3d7d3d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -1.6 0 90)
+		(size 2 1.2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "1cb6b4c4-0300-4506-b1e9-840333eb59e1")
+	)
+	(pad "2" smd rect
+		(at 1.6 0 90)
+		(size 2 1.2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "11d7d63f-cb36-4c8d-b524-30957023b969")
+	)
+	(embedded_fonts no)
+)

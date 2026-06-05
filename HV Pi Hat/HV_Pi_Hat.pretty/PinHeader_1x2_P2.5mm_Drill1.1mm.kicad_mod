@@ -1,0 +1,359 @@
+(footprint "PinHeader_1x2_P2.5mm_Drill1.1mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "http://www.jst-mfg.com/product/pdf/eng/eXH.pdf")
+	(property "Reference" "REF**"
+		(at 5 -4 180)
+		(layer "F.SilkS")
+		(uuid "b6fc8647-6027-4911-b7ff-074b59e656ec")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "B2B-XH-A_LF__SN_"
+		(at 1.48 4.41 180)
+		(layer "F.Fab")
+		(uuid "1f7c93c2-4f60-4533-a3fd-c8933b97e805")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "http://www.jst-mfg.com/product/pdf/eng/eXH.pdf"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6e7f23e9-2f89-4a9a-89f9-94d6c147693d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "CONN HEADER VERT 2POS 2.5MM"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2ada5dba-9d84-47d1-af01-139e6b334c8b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Digi-Key_PN" "455-2247-ND"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "249e38f2-60e1-4f88-a01b-b4dc6aa85947")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" "B2B-XH-A(LF)(SN)"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5ad400a2-9bc7-4ffe-ad43-6d06c85ae6ed")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Category" "Connectors, Interconnects"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "649ae9a9-30f4-4a31-8513-082d0bd57af6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Family" "Rectangular Connectors - Headers, Male Pins"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7a1d15c6-5ac0-427b-99d5-4d4a95c18426")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "DK_Datasheet_Link" "http://www.jst-mfg.com/product/pdf/eng/eXH.pdf"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5eb3b378-277c-4539-8d0f-985c911abd29")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "DK_Detail_Page" "/product-detail/en/jst-sales-america-inc/B2B-XH-A(LF)(SN)/455-2247-ND/1651045"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f3f3eda5-ba8d-4b5d-9612-3b28475671be")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description_1" "CONN HEADER VERT 2POS 2.5MM"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7a2cf3cf-9114-40ab-9f86-12083658c330")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer" "JST Sales America Inc."
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "94da8ddf-2c56-44bb-bd8f-2b82585ffc57")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Status" "Active"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3694094d-a39b-44a2-bf3a-6447ad827982")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -2.6 -3)
+		(end -2.6 -2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a332e53d-3b64-4c15-8e7b-54a8efb4dfe0")
+	)
+	(fp_line
+		(start -2.6 -3)
+		(end -2.1 -3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c769e704-25d2-4e86-bbdb-0f78603da148")
+	)
+	(fp_line
+		(start -2.6 3)
+		(end -2.6 2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c7ea9933-7371-4362-a5fd-6155303ba3b9")
+	)
+	(fp_line
+		(start -2.6 3)
+		(end -2.1 3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c13a2a63-0ecd-4699-902b-54fb435e8cff")
+	)
+	(fp_line
+		(start 5.6 -3)
+		(end 5.1 -3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b7c67ce9-3396-435f-89d9-9a5ad083c210")
+	)
+	(fp_line
+		(start 5.6 -3)
+		(end 5.6 -2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f06aa7ea-7e8e-4cf9-adb1-ea349b906da3")
+	)
+	(fp_line
+		(start 5.6 3)
+		(end 5.1 3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "bac64f00-186e-42ff-97be-bcbb423c8db1")
+	)
+	(fp_line
+		(start 5.6 3)
+		(end 5.6 2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a54ea807-5c87-4016-9418-56eb291fa97c")
+	)
+	(fp_line
+		(start -2.7 -3.13)
+		(end -2.7 3.12)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "cc00f3f0-bf87-4dbf-835b-893f9e57fad2")
+	)
+	(fp_line
+		(start 5.7 -3.13)
+		(end -2.7 -3.13)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "d6bd3ec0-7b1f-4924-98c1-878de4e7ae0e")
+	)
+	(fp_line
+		(start 5.7 3.12)
+		(end -2.7 3.12)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "bfe4ddf4-c1e1-4745-9d3b-e7a8d88d302d")
+	)
+	(fp_line
+		(start 5.7 3.12)
+		(end 5.7 -3.13)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "3ca1ac22-db45-40d7-9cce-6f2156bf47a9")
+	)
+	(fp_line
+		(start -2.45 -2.875)
+		(end -2.45 2.875)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e67b9c48-c2b5-4b9f-9ef2-7895c3000ccb")
+	)
+	(fp_line
+		(start -2.45 -2.875)
+		(end 5.45 -2.875)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "89353468-3d06-456c-9db8-612134bfe719")
+	)
+	(fp_line
+		(start -2.45 2.875)
+		(end 5.45 2.875)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "06fe74f0-aa2c-4486-b387-7fe1ba07d8e4")
+	)
+	(fp_line
+		(start 5.45 -2.875)
+		(end 5.45 2.875)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "df8c3b0b-fc46-4a70-ad0c-0ae530c2b643")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 1.3 -0.1 180)
+		(layer "F.Fab")
+		(uuid "43f58ed9-2147-41fb-b29b-ec5fd2fb72ea")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 2.1 2.1)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "96059f9a-4d3e-4feb-ac21-c4f98b697189")
+	)
+	(pad "2" thru_hole circle
+		(at 2.5 0)
+		(size 2.1 2.1)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d3fd987c-576e-4e8b-8bca-92905b179478")
+	)
+	(embedded_fonts no)
+)
