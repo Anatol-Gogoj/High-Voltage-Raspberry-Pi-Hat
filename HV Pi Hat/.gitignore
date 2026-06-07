@@ -1,0 +1,7 @@
+# Claude / analysis artifacts (regenerable — see docs/TOOLING.md)
+render_*.png
+drc_*.json
+
+# Editor / KiCad local cruft
+.history/
+HV Pi Hat-backups/

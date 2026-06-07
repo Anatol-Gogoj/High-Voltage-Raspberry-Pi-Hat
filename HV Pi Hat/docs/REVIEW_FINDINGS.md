@@ -1,5 +1,8 @@
 # HV Pi Hat — design review findings (2026-06-05)
 
+> Status: these issues are **resolved in `CONTROL_DESIGN.md`**; schematic implementation is tracked in
+> `EESCHEMA_TODO.md`. Kept as the record of *why* the redesign was made.
+
 Source: KiCad netlist + datasheets (see `datasheets/`). Architecture concept is sound
 (SMHV0550 5 kV/200 µA module → per-channel OPTO-100 photo-coupler as charge switch →
 DEA, with a bleeder for discharge, MOSFET driving the opto LED, optical control isolation).

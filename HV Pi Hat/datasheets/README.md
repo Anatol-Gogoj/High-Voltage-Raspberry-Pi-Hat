@@ -5,9 +5,9 @@ Local copies of datasheets for the key parts in this design. Pulled 2026-06-05.
 | Part | Ref(s) | Role | Key specs | File | Source |
 |---|---|---|---|---|---|
 | HVM SMHV0550 | U1 | 5 kV programmable HV DC-DC module | 0–5 kV out, **200 µA** max, 5 V in (<350 mA), Program 0–5 V, Vmon/Imon 0–1 V, Ilimit (tie 5 V to disable), non-isolated (HVRTN=GND), 45–80 kHz | `HVM_SMHV_series.pdf` | [hvmtech.com/smhv-series](https://www.hvmtech.com/smhv-series) |
-| HVM OPTO-100-05 | OR1, OR2 | HV opto-coupler (charge path / HV switch) | **10 kV** standoff, **CTR 0.15%**, LED Vf 2.9–3.25 V, LED 400 mA max, turn-on/off 2 µs, internal current-limit R | `HVM_OPTO-100.pdf` | [hvmtech.com/opto100](https://www.hvmtech.com/opto100) |
+| HVM OPTO-100-05 | OR1–OR4 | HV opto-coupler (charge path / HV switch) | **10 kV** standoff, **CTR 0.15%**, LED Vf 2.9–3.25 V, LED 400 mA max, turn-on/off 2 µs, internal current-limit R | `HVM_OPTO-100.pdf` | [hvmtech.com/opto100](https://www.hvmtech.com/opto100) |
 | Murata MHR0317SA107F70 | R1, R2 | HV bleeder / discharge resistor | **100 MΩ** (code 107), 0317 size, axial HV chip | `Murata_MHR0317SA_series.pdf` | [murata.com](https://www.murata.com/en-us/products/resistor/highvoltage) |
-| Microchip TN0610N3-G | Q1, Q2 | N-MOSFET — opto-LED low-side driver | 100 V, 500 mA, Vgs(th) ≤ 2 V, TO-92 | `TN0610N3-G_Microchip.pdf` | [microchip.com/TN0610](https://www.microchip.com/en-us/product/TN0610) |
+| Microchip TN0610N3-G | Q1–Q4 | N-MOSFET — opto-LED low-side driver | 100 V, 500 mA, Vgs(th) ≤ 2 V, TO-92 | `TN0610N3-G_Microchip.pdf` | [microchip.com/TN0610](https://www.microchip.com/en-us/product/TN0610) |
 
 ## Design notes uncovered while collecting these
 

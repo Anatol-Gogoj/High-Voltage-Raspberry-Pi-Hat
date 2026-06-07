@@ -1,5 +1,8 @@
 # eeschema implementation checklist — control rework + active discharge
 
+> **Progress (2026-06-05):** Phase 0 ✅ · Phase 1 ✅ (MCP6001-OT op-amp, input caps, ferrite bead placed & saved) · Phase 2 ⏳ partial · Phases 3–8 pending.
+> Verify note: kicad-cli couldn't load the .sch at last check (file open in eeschema / OneDrive sync). Re-check after closing eeschema; if it persists, confirm the ferrite symbol is `Device:Ferrite_Bead`.
+
 Work top-to-bottom in Eeschema. Values/wiring reference `CONTROL_DESIGN.md`.
 Don't worry about reference numbers for new parts — place them, then **Tools → Annotate** at the end.
 Leave footprint assignment (Phase 7) until the wiring is done.
