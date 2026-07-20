@@ -1,5 +1,11 @@
 # eeschema implementation checklist — control rework + active discharge
 
+> **✅ SUPERSEDED 2026-06-07** — this entire checklist was completed autonomously via verified
+> S-expression edits (not the eeschema GUI). The schematic now matches `CONTROL_DESIGN.md` exactly
+> (netlist 30/30, ERC 0 errors) and the PCB is forward-annotated (parity 0). See
+> `AUTONOMOUS_BUILD_LOG.md` and `STATUS.md`. Kept below for historical reference only.
+
+
 > **Progress (2026-06-05):** Phase 0 ✅ · Phase 1 ✅ (MCP6001-OT op-amp, input caps, ferrite bead placed & saved) · Phase 2 ⏳ partial · Phases 3–8 pending.
 > Verify note: kicad-cli couldn't load the .sch at last check (file open in eeschema / OneDrive sync). Re-check after closing eeschema; if it persists, confirm the ferrite symbol is `Device:Ferrite_Bead`.
 

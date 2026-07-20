@@ -1,0 +1,59 @@
+PCB statistics report
+=====================
+- Date: 6/7/2026 05:08:39
+- Project: HV Pi Hat
+- Board name: HV Pi Hat
+
+Board
+-----
+- Width: 85.0000 mm
+- Height: 56.0000 mm
+- Area: 4749.469 mm²
+- Front copper area: 3466.886 mm²
+- Back copper area: 3674.206 mm²
+- Min track clearance: 2147.4836 mm
+- Min track width: 2147.4836 mm
+- Min drill diameter: 0.7000 mm
+- Board stackup thickness: 1.6000 mm
+
+- Front footprint area: 2358.188 mm²
+- Back footprint area: 291.39 mm²
+- Front component density: 49.65 %
+- Back component density: 6.14 %
+Pads
+----
+- Through hole: 89
+- SMD: 63
+- Connector: 8
+- NPTH: 0
+- Castellated: 0
+- Press-fit: 0
+
+Vias
+----
+- Through vias: 0
+- Blind vias: 0
+- Buried vias: 0
+- Micro vias: 0
+
+Components
+----------
+
+|              | Front Side | Back Side | Total |
+|--------------|------------|-----------|-------|
+|THT:          |          9 |         0 |     9 |
+|SMD:          |         34 |         0 |    34 |
+|Unspecified:  |          4 |         0 |     4 |
+|Total:        |         47 |         0 |    47 |
+
+Drill holes
+-----------
+
+| Count | Shape |    X Size |    Y Size | Plated | Via/Pad | Start Layer | Stop Layer |
+|-------|-------|-----------|-----------|--------|---------|-------------|------------|
+|    40 | Round | 1.0000 mm | 1.0000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|    16 | Round | 0.7620 mm | 0.7620 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|    12 | Round | 0.8128 mm | 0.8128 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     9 | Round | 0.8890 mm | 0.8890 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     8 | Round | 0.7000 mm | 0.7000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     4 | Round | 2.7000 mm | 2.7000 mm |    PTH |     Pad |        F.Cu |       B.Cu |

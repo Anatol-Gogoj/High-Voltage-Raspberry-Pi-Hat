@@ -5,3 +5,7 @@ drc_*.json
 # Editor / KiCad local cruft
 .history/
 HV Pi Hat-backups/
+
+# KiCad lock files + editor backups (transient)
+~*.lck
+*.bak
