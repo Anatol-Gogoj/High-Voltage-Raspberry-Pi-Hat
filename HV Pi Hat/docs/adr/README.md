@@ -9,4 +9,6 @@ a new ADR that supersedes the old one, and the old one's status line points to i
 | [0002](0002-hv-on-outer-layers.md) | HV on the outer layers, inner layers voided, thick stackup | Accepted |
 | [0003](0003-hv-spacing-basis.md) | HV spacing basis: encapsulate the HV zone | Accepted; prerequisites open |
 | [0004](0004-board-footprint.md) | Board footprint: standard HAT outline (65 x 56.0 mm for a THT header) | Accepted; rev B meets it |
-| [0005](0005-mechanical-stack.md) | Mechanical stack: 20 mm standoffs, GPIO header, Pi 5 parts underneath | Accepted; header not yet chosen |
+| [0005](0005-mechanical-stack.md) | Mechanical stack: 20 mm standoffs, GPIO header, Pi 5 parts underneath | Accepted; header pending bench test T3 |
+| [0006](0006-opto-led-drive.md) | Opto LED drive current: 15 Ohm (CTR threshold) | Accepted; pending bench test T1 |
+| [0007](0007-hatplus-compliance.md) | HAT+ compliance: ID EEPROM, underside socket, unplated holes | Accepted |

@@ -25,10 +25,15 @@
 | C2 | 1 | 47 µF, ≥10 V, X5R/X7R MLCC | 1206 | Murata GRM31CR61A476KE15L (47 µF 10 V X5R) | DigiKey **490-5523-1-ND** | Y — high stock | ~$0.30 | 1206, 10 V X5R. For more margin use 16 V (GRM31CR61C476K). |
 | C1, C3 | 2 | 1 µF, ≥16 V MLCC | 0603 | Murata GRM188R61E105KA12D (1 µF 25 V X5R) | DigiKey **490-5523-2-... / 490-1543-1-ND** | Y — very high stock | ~$0.10 | 0603, 25 V X5R (>16 V margin). |
 | C4, C5 | 2 | 0.1 µF, ≥16 V MLCC | 0603 | Murata GRM188R71H104KA93D (0.1 µF 50 V X7R) | DigiKey **490-3553-1-ND** | Y — very high stock | ~$0.10 | 0603, 50 V X7R. |
-| R6, R14, R21, R22 | 4 | 51 Ω, 1%, 0.1 W | 0603 | Yageo RC0603FR-0751RL | DigiKey **311-51.0HRCT-ND** | Y — very high stock | ~$0.10 | 0603 0.1 W ≥ the ~0.09 W load. |
+| R6, R14, R21, R22 | 4 | 15 Ω opto-LED resistors (ADR-0006), about 0.19 W each at ~110 mA | 1206 | Panasonic ERJ-P08J150V (listed 2/3 W; confirm on the Panasonic datasheet) | Not re-checked | Not re-checked | n/a | Replaces the 51 Ω 0603 (Yageo RC0603FR-0751RL). |
 | R11, R15 | 2 | 470 Ω, 1% | 0603 | Yageo RC0603FR-07470RL | DigiKey **311-470HRCT-ND** | Y — very high stock | ~$0.10 | LED series resistors (with D1/D2). |
 | R16, R17, R18, R23 | 4 | 100 Ω, 1% | 0603 | Yageo RC0603FR-07100RL | DigiKey **311-100HRCT-ND** | Y — very high stock | ~$0.10 | |
 | R7, R10, R13, R19, R20, R24 | 6 | 10 kΩ, 1% | 0603 | Yageo RC0603FR-0710KL | DigiKey **311-10.0KHRCT-ND** | Y — very high stock | ~$0.10 | |
+| U3 | 1 | HAT+ ID EEPROM, 32 Kb, 3.3 V I2C, WP protects whole array | SOIC-8 | OnSemi CAT24C32 (HAT+ spec 3.3.1 recommended part) | Not re-checked | Not re-checked | n/a | ADR-0007. Avoid Microchip variants whose WP does not cover the whole array (spec warning). |
+| R27, R28 | 2 | 3.9 kΩ ID_SD/ID_SC pull-ups to 3.3 V (HAT+ spec ch. 2) | 0603 | Any 1 % thick film | Not re-checked | Not re-checked | n/a | |
+| R29 | 1 | 1 kΩ WP pull-up (HAT+ spec 3.3) | 0603 | Any 1 % thick film | Not re-checked | Not re-checked | n/a | TP1 (bare pad, not in BOM) on WP for programming. |
+| C6 | 1 | 0.1 µF EEPROM decoupling | 0603 | Same as C4/C5 | | | | |
+| H1-H4 | 4 | Mounting holes, unplated 2.75 mm, 6.2 mm copper-free land | NPTH | n/a | | | | ADR-0007; 20 mm M2.5 standoffs (ADR-0005). |
 | R8 | 1 | 100 kΩ, 1% | 0603 | Yageo RC0603FR-07100KL | DigiKey **311-100KHRCT-ND** | Y — very high stock | ~$0.10 | |
 | R9 | 1 | 5.6 kΩ, 1% | 0603 | Yageo RC0603FR-075K6L | DigiKey **311-5.60KHRCT-ND** | Y — very high stock | ~$0.10 | |
 

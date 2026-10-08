@@ -59,9 +59,8 @@ deviates from the spec's 16 mm "ideal"; the spec allows it.
   secondhand copies of the datasheet). The Pi 5 drawing gives neither h_b nor h_p: measure both on
   the bench Pi before ordering. Raspberry Pi's 16 mm stacking header and the 13.5 mm tall
   sockets under-engage at 20 mm.
-- GPIO1 is drawn as a top-side pin header. The copper is right for any of these parts, but the
-  socket body sits on the underside, so the footprint should become a bottom-side socket before
-  assembly drawings are made.
+- GPIO1 is now a bottom-side 2x20 socket footprint (ADR-0007), pad positions unchanged, value
+  "Samtec ESQ-120-14-G-D" pending bench test T3.
 - The fan intake faces up and sits under the pot with 3.3 mm of room in the worst case (more if the
   cooler is lower than its 13.70 mm overall figure). Whether that costs enough cooling to matter is
   unknown; check SoC temperature under load with the HAT fitted.

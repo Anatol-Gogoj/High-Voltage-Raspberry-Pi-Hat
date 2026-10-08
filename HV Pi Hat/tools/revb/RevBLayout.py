@@ -21,7 +21,8 @@ LvPotBand = (159.5, 182.5, 86.0, 101.8)  # y0 above the pot top so no sliver of 
 Place = {
     # Mechanical: standard HAT+ hole pattern and header (unchanged from rev A)
     "H1": (179.0, 89.5, 0), "H2": (121.0, 89.5, 0), "H3": (121.0, 138.5, 0), "H4": (179.0, 138.5, 0),
-    "GPIO1": (125.875, 90.775, 90),
+    # GPIO socket on the underside (ADR-0005); flipped and at -90 its pads match the top-side header
+    "GPIO1": (125.875, 90.775, -90, "B"),
     # HV module: courtyard x 160.0..182.2, y 96.5..118.7; LV pins on the top row, HV pin 8 bottom-left
     "U1": (160.3, 96.8, -90),
     # Opto column: LED pins face left (x 147.05), HV pins face right (x 154.0)
@@ -45,13 +46,16 @@ Place = {
     # PGM stage, top-left
     "U2": (125.0, 97.5, 0), "R9": (128.5, 97.5, 90), "R10": (128.5, 100.8, 90), "C5": (128.0, 94.4, 0),
     "R7": (120.5, 98.0, 90), "R8": (120.5, 101.6, 90), "C1": (123.8, 101.4, 0),
+    # HAT+ ID EEPROM (HAT+ spec ch. 3): CAT24C32, ID_SD/ID_SC pull-ups, WP pull-up + test point
+    "U3": (127.5, 124.0, 0), "R27": (124.6, 129.0, 0), "R28": (128.4, 129.0, 0),
+    "R29": (124.6, 131.6, 0), "C6": (128.4, 131.6, 0), "TP1": (131.2, 134.2, 0),
 }
 
 
 def Cluster(Oy, Q, Rled, Rgate, Rpd, Rind=None, Led=None):
     # One opto driver, aligned with the opto whose origin y is Oy (LED+ at Oy+0.635, LED- at Oy+9.525)
     Place[Q] = (139.0, Oy + 9.5, 0)          # drain (pin 3) at x 141.54 faces the opto LED- pin
-    Place[Rled] = (141.0, Oy + 1.2, 0)       # +5V to LED+
+    Place[Rled] = (141.0, Oy + 1.2, 0)       # +5V to LED+ (15 Ohm 1206, ADR-0006)
     Place[Rgate] = (134.5, Oy + 8.2, 0)      # GPIO to gate
     Place[Rpd] = (134.5, Oy + 10.5, 0)       # gate pulldown
     if Rind:

@@ -37,5 +37,5 @@ records them. The decisions below fixed the circuit and set the board-level cons
 | Custom symbol pin types | MOSFET SRC/DRAIN, opto pins, module HVRTN set to passive; ILIMIT set to input | Cleared false output-to-output ERC errors | Current |
 | Power flags | PWR_FLAG on +5V and GND | Board is powered from the Pi | Current |
 | HV netclass binding | `.kicad_pro` pattern `/HV_*` maps to `HV_5kV` | Survives net renames | Current |
-| Passive footprints | 0603 for the 51 Ohm opto-LED resistors and other passives; 1206 for 47 uF | Power margin and hand soldering | Current |
+| Passive footprints | 0603 for the 51 Ohm opto-LED resistors and other passives; 1206 for 47 uF | Power margin and hand soldering | Opto-LED resistors superseded by ADR-0006 (15 Ohm, 1206) |
 | HV output connector | 1x2 screw terminal, 10.16 mm pitch (`TerminalBlock_RND_205-00241`), pad 1 = GND, pad 2 = HV out | SHV-R rejected: about 34 mm footprint and only 3.5 kV continuous | Current on the board. The part choice and the soldered-lead alternative are in `docs/HV_CONNECTOR_OPTIONS.md` and are tied to ADR-0004 |

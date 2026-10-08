@@ -1,19 +1,26 @@
-# BuildRevB.py - turn the rev A board into the rev B placement (HAT+ outline, potted HV zone).
+# BuildRevB.py - build the rev B board (HAT outline, potted HV zone) and sync it with the schematic.
 #
 # Usage (KiCad 10 python, from the project directory "HV Pi Hat/"):
 #   "/c/Program Files/KiCad/10.0/bin/python.exe" tools/revb/BuildRevB.py
 #
-# Rewrites "HV Pi Hat.kicad_pcb" in place (rev A stays in git history):
-#   1. Drops tracks, vias, zones, the Edge.Cuts outline, rev A's User.Drawings notes and J3/J4.
-#   2. Draws the 65 x 56.5 mm HAT+ outline with 3 mm corners.
-#   3. Adds J3/J4 as HV_Footprints:HV_LeadPair_P6.00mm with their nets (ADR-0003 soldered leads).
-#   4. Places every footprint from RevBLayout.py.
-#   5. Draws the pot on User.1 (HV pads + 3 mm, keyhole notch around H4) and voids In1/In2 under it.
+# Rewrites "HV Pi Hat.kicad_pcb" in place (it strips and rebuilds, so it runs on rev A or on rev B):
+#   1. Exports the schematic netlist (kicad-cli) for components, footprints, fields and pad nets.
+#   2. Drops tracks, vias, zones, the outline and user drawings, every footprint whose library ID no
+#      longer matches the schematic, footprints no longer in the schematic, and H1..H4 if they are not
+#      yet the HAT hole.
+#   3. Draws the HAT outline (65 x 56.0 mm for a THT header, 3 mm corners).
+#   4. Loads missing footprints from the libraries, sets reference/value/fields, and sets every pad's
+#      net from the netlist. H1..H4 become HV_Footprints:MountingHole_2.75mm_M2.5_NPTH_HAT.
+#   5. Places every footprint from RevBLayout.py (optional 4th field "B" = bottom side).
+#   6. Pot outline on User.1 (HV pads + 3 mm, keyhole notch at H4), In1/In2 voids under it,
+#      6.2 mm copper-free hole lands, and the PCIe notch strip.
 import importlib
 import math
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import pcbnew
 
 Here = os.path.dirname(os.path.abspath(__file__))
@@ -22,7 +29,11 @@ import RevBLayout as Layout
 importlib.reload(Layout)
 
 BoardPath = os.path.abspath("HV Pi Hat.kicad_pcb")
-LibPath = os.path.abspath("HV_Pi_Hat.pretty")
+SchPath = os.path.abspath("HV Pi Hat.kicad_sch")
+KiCadCli = "C:/Program Files/KiCad/10.0/bin/kicad-cli.exe"
+StdFootprints = "C:/Program Files/KiCad/10.0/share/kicad/footprints"
+HoleFootprint = "HV_Footprints:MountingHole_2.75mm_M2.5_NPTH_HAT"
+Holes = ("H1", "H2", "H3", "H4")
 Mm = pcbnew.ToMM
 
 
@@ -34,11 +45,28 @@ def Pt(X, Y):
     return pcbnew.VECTOR2I(FromMm(X), FromMm(Y))
 
 
-# 1. Text-level strip (KiCad 10 SWIG removal is unreliable, see docs/TOOLING.md)
+# 1. Schematic netlist
+NetFile = os.path.join(tempfile.gettempdir(), "revb_netlist.net")
+subprocess.run([KiCadCli, "sch", "export", "netlist", "-o", NetFile, SchPath], check=True, capture_output=True)
+Net = open(NetFile, encoding="utf-8").read()
+Comps = {}
+for Block in re.split(r"\n\t\t\(comp\n", Net[Net.index("(components"):Net.index("(libparts")])[1:]:
+    def Field(Key):
+        M = re.search(r'\(%s "((?:[^"\\]|\\.)*)"\)' % Key, Block)
+        return M.group(1) if M else ""
+    Comps[Field("ref")] = {"value": Field("value"), "footprint": Field("footprint"),
+                           "datasheet": Field("datasheet"), "description": Field("description")}
+PinNet = {}
+for Block in re.split(r"\n\t\t\(net\n", Net[Net.index("(nets"):])[1:]:
+    Name = re.search(r'\(name "([^"]*)"\)', Block).group(1)
+    for Ref, Pin in re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', Block):
+        PinNet[(Ref, Pin)] = Name
+
+# 2. Text-level strip (KiCad 10 SWIG removal is unreliable, see docs/TOOLING.md)
 Text = open(BoardPath, encoding="utf-8", newline="").read()
 Nl = "\r\n" if "\r\n" in Text else "\n"
 Lines = Text.split(Nl)
-Out, Index, Kept = [], 0, {}
+Out, Index, OnBoard = [], 0, set()
 while Index < len(Lines):
     Line = Lines[Index]
     M = re.match(r"^\t\((\w+)", Line)
@@ -56,31 +84,23 @@ while Index < len(Lines):
     Drop = Kind in ("segment", "via", "arc", "zone")
     if Kind.startswith("gr_") and any('(layer "%s")' % L in Joined for L in ("Edge.Cuts", "User.Drawings", "User.1", "User.2")):
         Drop = True
-    Ref = re.search(r'\(property "Reference" "([^"]+)"', Joined) if Kind == "footprint" else None
-    if Ref and Ref.group(1) in ("J3", "J4"):
-        Kept[Ref.group(1)] = {
-            "value": re.search(r'\(property "Value" "([^"]*)"', Joined).group(1),
-            "nets": dict(re.findall(r'\(pad "([^"]+)".*?\(net "([^"]*)"\)', Joined, re.S)),
-        }
-        Drop = True
+    if Kind == "footprint":
+        Ref = re.search(r'\(property "Reference" "([^"]+)"', Joined).group(1)
+        FpId = re.match(r'^\t\(footprint "([^"]+)"', Line).group(1)
+        if Ref in Holes:
+            Drop = FpId != HoleFootprint
+        elif Ref not in Comps or Comps[Ref]["footprint"] != FpId:
+            Drop = True
+        if not Drop:
+            OnBoard.add(Ref)
     if not Drop:
         Out.extend(Block)
     Index = End + 1
 open(BoardPath, "w", encoding="utf-8", newline="").write(Nl.join(Out))
-if set(Kept) != {"J3", "J4"}:
-    sys.exit("J3/J4 not found in the board")
-
-# Footprint fields that schematic parity compares, read from the schematic so they stay in sync
-Sch = open("HV Pi Hat.kicad_sch", encoding="utf-8").read()
-SchDesc = {}
-for Ref in ("J3", "J4"):
-    I = Sch.index('(property "Reference" "%s"' % Ref)
-    Block = Sch[Sch.rfind("(symbol", 0, I):Sch.index("(instances", I)]
-    SchDesc[Ref] = re.search(r'\(property "Description" "([^"]*)"', Block).group(1)
 
 Board = pcbnew.LoadBoard(BoardPath)
 
-# 2. Outline
+# 3. Outline
 X0, Y0, X1, Y1, Rc = Layout.Outline
 Edge = Board.GetLayerID("Edge.Cuts")
 
@@ -103,33 +123,68 @@ for (Sx, Sy, Mx, My, Ex, Ey) in [(X0, Y0 + Rc, X0 + K, Y0 + K, X0 + Rc, Y0), (X1
     S.SetArcGeometry(Pt(Sx, Sy), Pt(Mx, My), Pt(Ex, Ey))
     AddEdge(S)
 
-# 3. J3/J4 from the project library, same reference, value and pad nets as the schematic
-for Ref in ("J3", "J4"):
-    Fp = pcbnew.FootprintLoad(LibPath, "HV_LeadPair_P6.00mm")
-    if Fp is None:
-        sys.exit("HV_LeadPair_P6.00mm not found in " + LibPath)
-    Fp.SetFPID(pcbnew.LIB_ID("HV_Footprints", "HV_LeadPair_P6.00mm"))
-    Fp.SetField("Description", SchDesc[Ref])
-    Fp.SetReference(Ref)
-    Fp.SetValue("HV_LeadPair")
-    for Pad in Fp.Pads():
-        Pad.SetNet(Board.FindNet(Kept[Ref]["nets"][Pad.GetNumber()]))
-    Board.Add(Fp)
+# 4. Footprints from the libraries, fields and nets from the netlist
+ProjectNicks = set(re.findall(r'\(name "([^"]+)"\)', open("fp-lib-table", encoding="utf-8").read()))
 
-# 4. Placement
+
+def LoadFootprint(LibId):
+    Nick, Name = LibId.split(":", 1)
+    Path = os.path.abspath("HV_Pi_Hat.pretty") if Nick in ProjectNicks else "%s/%s.pretty" % (StdFootprints, Nick)
+    Fp = pcbnew.FootprintLoad(Path, Name)
+    if Fp is None:
+        sys.exit("footprint %s not found in %s" % (LibId, Path))
+    Fp.SetFPID(pcbnew.LIB_ID(Nick, Name))
+    return Fp
+
+
+for Ref in Holes:
+    if Ref not in OnBoard:
+        Fp = LoadFootprint(HoleFootprint)
+        Fp.SetReference(Ref)
+        Board.Add(Fp)
+for Ref, C in sorted(Comps.items()):
+    if Ref in OnBoard:
+        continue
+    Fp = LoadFootprint(C["footprint"])
+    Fp.SetReference(Ref)
+    Fp.SetValue(C["value"])
+    Fp.SetField("Datasheet", C["datasheet"])
+    Fp.SetField("Description", C["description"])
+    Board.Add(Fp)
+    print("added", Ref, C["footprint"])
+Nets = {}
+for Fp in Board.GetFootprints():
+    Ref = Fp.GetReference()
+    for Pad in Fp.Pads():
+        Name = PinNet.get((Ref, Pad.GetNumber()))
+        if Name is None:
+            continue
+        if Name not in Nets:
+            Item = Board.FindNet(Name)
+            if Item is None:
+                Item = pcbnew.NETINFO_ITEM(Board, Name)
+                Board.Add(Item)
+            Nets[Name] = Item
+        Pad.SetNet(Nets[Name])
+
+# 5. Placement
 Missing = []
 for Fp in Board.GetFootprints():
     Ref = Fp.GetReference()
     if Ref not in Layout.Place:
         Missing.append(Ref)
         continue
-    X, Y, Rot = Layout.Place[Ref]
+    Spec = Layout.Place[Ref]
+    X, Y, Rot = Spec[:3]
+    Side = Spec[3] if len(Spec) > 3 else "F"
     Fp.SetPosition(Pt(X, Y))
+    if (Side == "B") != Fp.IsFlipped():
+        Fp.Flip(Fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
     Fp.SetOrientationDegrees(Rot)
 if Missing:
     sys.exit("no placement for: " + ", ".join(sorted(Missing)))
 
-# 5. Pot outline and inner-layer voids
+# 6. Pot outline, inner-layer voids, hole lands, PCIe notch strip
 HvPads = []
 for Fp in Board.GetFootprints():
     for Pad in Fp.Pads():
@@ -150,23 +205,8 @@ for (Ax, Ay), (Bx, By) in zip(Poly, Poly[1:] + Poly[:1]):
     S.SetLayer(User1)
     S.SetWidth(FromMm(0.2))
     Board.Add(S)
-for LayerName in ("In1.Cu", "In2.Cu"):
-    Z = pcbnew.ZONE(Board)
-    Z.SetIsRuleArea(True)
-    Z.SetDoNotAllowTracks(True)
-    Z.SetDoNotAllowVias(True)
-    Z.SetDoNotAllowZoneFills(True)
-    Z.SetDoNotAllowPads(False)
-    Z.SetDoNotAllowFootprints(False)
-    Z.SetLayer(Board.GetLayerID(LayerName))
-    Z.SetZoneName("PotVoid_" + LayerName)
-    Ol = Z.Outline()
-    Ol.NewOutline()
-    for (Ax, Ay) in Poly:
-        Ol.Append(FromMm(Ax), FromMm(Ay))
-    Board.Add(Z)
 
-# Mounting-hole lands: no copper within HoleLandDiameter (isolated land, HAT drawing)
+
 def RuleArea(Name, Points, Layers, Footprints=False):
     Z = pcbnew.ZONE(Board)
     Z.SetIsRuleArea(True)
@@ -187,9 +227,11 @@ def RuleArea(Name, Points, Layers, Footprints=False):
     Board.Add(Z)
 
 
+for LayerName in ("In1.Cu", "In2.Cu"):
+    RuleArea("PotVoid_" + LayerName, Poly, [LayerName])
 AllCopper = ["F.Cu", "In1.Cu", "In2.Cu", "B.Cu"]
-for Ref in ("H1", "H2", "H3", "H4"):
-    Hx, Hy, _ = Layout.Place[Ref]
+for Ref in Holes:
+    Hx, Hy = Layout.Place[Ref][:2]
     R = Layout.HoleLandDiameter / 2
     RuleArea("HoleLand_" + Ref, [(Hx + R * math.cos(math.radians(A)), Hy + R * math.sin(math.radians(A))) for A in range(0, 360, 15)], AllCopper)
 Nx0, Ny0, Nx1, Ny1 = Layout.PcieNotch

@@ -13,6 +13,7 @@ this directory. The KiCad 9 CLI cannot load the schematic.
 | `docs/TOOLING.md` | kicad-cli / pcbnew commands and KiCad 10 scripting gotchas |
 | `docs/BOM_SOURCED.md`, `fab/BOM.csv` | Sourced parts; BOM regenerated from the schematic |
 | `docs/HV_CONNECTOR_OPTIONS.md` | HV output termination study |
+| `docs/BENCH_TESTS.md` | Measurements the design depends on (opto CTR, lead polarity, Pi pin height, fail-safes) |
 | `datasheets/README.md` | Parts, verified specs, gotchas |
 | `tools/` | `HvInterlayer.py` and `PotMargin.py` (HV checks DRC cannot do), `revb/` (rev B build), `MakeLeadPair.py` |
 | `docs/AUTONOMOUS_BUILD_LOG.md` | Historical log of the June 2026 build pass. Where it disagrees with an ADR, the ADR wins |
@@ -27,7 +28,10 @@ until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 
 `HV Pi Hat.kicad_dru`.
 
 ## Top gotchas (don't relearn these the hard way)
-- OPTO-100 CTR is about **0.15 %**, so the opto-LED resistors are **51 Ohm** (not 200 Ohm).
+- OPTO-100 CTR is **0.15 % above a ~40 mA threshold** (datasheet graph): opto-LED resistors are
+  **15 Ohm 1206** (~110 mA), not 51 Ohm (ADR-0006, bench test T1).
+- OPTO-100 HV leads are polarized: RED (cathode) to the higher-potential pad 3. Reversed, the
+  photodiode conducts with no light (`docs/BENCH_TESTS.md` T2).
 - SMHV **`ILIMIT` (pin 7) MUST tie to 5 V**, or the module sources almost no current.
 - `MHR0317SA107F70` = **100 MOhm** (the old "50 M" label was wrong).
 - The 1 GOhm safety bleeders R25/R26 are **populated** by default (fail-safe when unpowered).
