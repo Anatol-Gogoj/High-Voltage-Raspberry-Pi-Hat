@@ -9,3 +9,6 @@ HV Pi Hat-backups/
 # KiCad lock files + editor backups (transient)
 ~*.lck
 *.bak
+
+# Study boards: local KiCad UI state
+studies/**/*.kicad_prl

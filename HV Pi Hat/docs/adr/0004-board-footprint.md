@@ -53,8 +53,7 @@ Target the 65 x 56.5 mm HAT+ outline with the standard hole pattern and 3 mm cor
 
 The HV zone has to lose about 20 mm of width: from x 163 to 202.5 today (39.5 mm) to x 163 to 182.5
 (19.5 mm) if the LV and opto lanes stay where they are. The SMHV0550 body alone is 21.6 mm wide, so
-the lanes have to compact too. Whether two channels with active discharge fit is not established;
-it needs a placement study. Levers, in recommended order:
+the lanes have to compact too. Levers, in recommended order:
 
 1. Replace the J3/J4 screw terminals with direct-soldered HV silicone leads and a strain relief.
    `docs/HV_CONNECTOR_OPTIONS.md` already ranks this first for a lab build, and it removes both
@@ -64,6 +63,11 @@ it needs a placement study. Levers, in recommended order:
    bodies. No candidate part has been sourced yet.
 4. Only if 1 to 3 fail: give up active discharge on one or both channels, which reverses an
    ADR-0001 decision.
+
+Feasibility (2026-10-08): the placement study in `studies/hatplus/` (issue #4) routes the full
+two-channel active-discharge circuit inside the 65 x 56.5 mm outline with the HV zone potted, using
+levers 1 and 2 only, at both 2 mm and 3 mm HV spacing. It is a scripted feasibility layout, not a
+finished one; its README lists what remains.
 
 The spacing basis (ADR-0003) pulls the other way. Every millimeter added to the HV rule makes the
 standard outline harder, so the placement study should run at the spacing ADR-0003 settles on,
