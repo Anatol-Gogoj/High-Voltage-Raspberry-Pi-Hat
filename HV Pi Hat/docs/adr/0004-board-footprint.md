@@ -1,6 +1,6 @@
 # ADR-0004: Board footprint: target the standard HAT+ outline
 
-- Status: Accepted as the target 2026-10-08. The current layout (rev A, 85 x 56 mm) does not meet it.
+- Status: Accepted 2026-10-08. Rev B (issue #6) meets the outline; rev A (85 x 56 mm) did not.
 - Deciders: Anatol Gogoj
 - Supersedes: the "Form factor 85 x 56 mm" row of ADR-0001
 - Related: ADR-0002 (layer strategy), ADR-0003 (spacing basis)

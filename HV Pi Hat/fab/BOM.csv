@@ -5,7 +5,7 @@
 "D1,D2","LED","LED_SMD:LED_0603_1608Metric","2",""
 "FB1","FerriteBead","Inductor_SMD:L_0805_2012Metric","1",""
 "GPIO1","","Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical","1",""
-"J3,J4","HV_Term_1x2","TerminalBlock_RND:TerminalBlock_RND_205-00241_1x02_P10.16mm_Horizontal","2",""
+"J3,J4","HV_LeadPair","HV_Footprints:HV_LeadPair_P6.00mm","2",""
 "OR1,OR2,OR3,OR4","","HV_Footprints:HVM OR-100","4",""
 "Q1,Q2,Q3,Q4","","TN0610N3_G_P013_Footprint:TO-92_MC_MCH","4",""
 "R1,R2","100 M","MHR0317SA107F70:RESRR1524W50L1760T250H500","2",""

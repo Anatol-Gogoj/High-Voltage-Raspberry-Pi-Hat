@@ -30,6 +30,7 @@ Fails to load while the `.sch` is open in eeschema; close eeschema first.
     "/c/Program Files/KiCad/10.0/bin/python.exe" tools/HvInterlayer.py "HV Pi Hat.kicad_pcb"
 Prints the smallest 3-D distances between HV copper and non-HV copper on other layers, using the
 ADR-0002 stackup, and the average field at 5 kV. Re-run after any HV re-route or stackup change.
+Round pads use their true radius; other pads their circumscribed circle (conservative).
 
 ## pcbnew scripting gotchas (KiCad 10.0.1)
 - **Load boards from inside the project directory.** Zone fill and netclass lookup need the
@@ -46,12 +47,27 @@ ADR-0002 stackup, and the average field at 5 kV. Re-run after any HV re-route or
   (`kicad-cli pcb drc` reports 0 unconnected items). Pour islands are kept when they hold a pad,
   so a cut-off island shows up only as an unconnected zone-to-zone item.
 
-## Footprint extraction to a project `.pretty` (KiCad 9 API; not re-tested on 10)
-Legacy `pcbnew.FootprintSave` is broken in v9. Use the IO manager:
+## Footprint save to a project `.pretty`
+Use the IO manager. KiCad 10 renamed `PluginFind` (9.0) to `FindPlugin`:
 
     import pcbnew
-    io = pcbnew.PCB_IO_MGR.PluginFind(pcbnew.PCB_IO_MGR.KICAD_SEXP)
-    io.FootprintSave(pretty_dir, footprint)   # footprint from board.GetFootprints()
+    io = pcbnew.PCB_IO_MGR.FindPlugin(pcbnew.PCB_IO_MGR.KICAD_SEXP)
+    io.FootprintSave(pretty_dir, footprint)
+
+`tools/MakeLeadPair.py` is a working example. Library nickname for the project footprints is
+`HV_Footprints` (it points at `HV_Pi_Hat.pretty`); there is no `HV_Pi_Hat` nickname.
+
+## Rev B build (HAT+ outline)
+    "/c/Program Files/KiCad/10.0/bin/python.exe" tools/revb/BuildRevB.py
+    "/c/Program Files/KiCad/10.0/bin/python.exe" tools/revb/AutoRoute.py "HV Pi Hat.kicad_pcb" 2.0
+BuildRevB rewrites the board in place with the placement in `tools/revb/RevBLayout.py` (it strips and
+rebuilds, so it runs on rev A or on an existing rev B);
+AutoRoute routes it (HV first, LV kept out of the pot) and pours GND. Then run DRC with
+`--schematic-parity`, `tools/HvInterlayer.py` and `tools/PotMargin.py`.
+
+## Pot margin
+    "/c/Program Files/KiCad/10.0/bin/python.exe" tools/PotMargin.py "HV Pi Hat.kicad_pcb"
+Smallest distance from HV copper to the pot edge (the `PotVoid_In1.Cu` rule area); ADR-0003 wants 3 mm.
 
 ## Limitations (drives who-does-what)
 - **No schematic Python API**, so schematic edits are eeschema **GUI** (or risky text surgery).

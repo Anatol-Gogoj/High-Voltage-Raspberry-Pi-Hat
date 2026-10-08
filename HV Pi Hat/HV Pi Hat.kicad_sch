@@ -5619,7 +5619,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "HV_Term_1x2"
+		(property "Value" "HV_LeadPair"
 			(at 223.52 72.3899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5630,7 +5630,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "TerminalBlock_RND:TerminalBlock_RND_205-00241_1x02_P10.16mm_Horizontal"
+		(property "Footprint" "HV_Footprints:HV_LeadPair_P6.00mm"
 			(at 222.25 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -5652,7 +5652,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" "Soldered HV lead pair for the potted zone: pin 1 return (GND), pin 2 HV (ADR-0003)"
 			(at 222.25 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -9897,7 +9897,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "HV_Term_1x2"
+		(property "Value" "HV_LeadPair"
 			(at 223.52 60.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9908,7 +9908,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "TerminalBlock_RND:TerminalBlock_RND_205-00241_1x02_P10.16mm_Horizontal"
+		(property "Footprint" "HV_Footprints:HV_LeadPair_P6.00mm"
 			(at 222.25 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -9930,7 +9930,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" "Soldered HV lead pair for the potted zone: pin 1 return (GND), pin 2 HV (ADR-0003)"
 			(at 222.25 60.96 0)
 			(hide yes)
 			(show_name no)

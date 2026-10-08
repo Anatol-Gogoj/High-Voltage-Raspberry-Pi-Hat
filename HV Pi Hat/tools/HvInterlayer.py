@@ -5,7 +5,7 @@
 # Usage (KiCad 10 python, run from the project directory so netclasses resolve):
 #   "/c/Program Files/KiCad/10.0/bin/python.exe" tools/HvInterlayer.py "HV Pi Hat.kicad_pcb" [kV] [rows]
 #
-# Shapes are conservative: pads are their circumscribed circle, tracks are capsules, vias are
+# Shapes: round pads exact, other pads their circumscribed circle (conservative), tracks capsules, vias
 # circles on every layer. Layer z positions come from the board file's (stackup ...) block.
 import math
 import re
@@ -68,7 +68,10 @@ for Fp in Board.GetFootprints():
         if not Pad.GetNetname():
             continue
         Size = Pad.GetSize(pcbnew.F_Cu)
-        Radius = math.hypot(Mm(Size.x), Mm(Size.y)) / 2
+        if Pad.GetShape(pcbnew.F_Cu) == pcbnew.PAD_SHAPE_CIRCLE:
+            Radius = Mm(max(Size.x, Size.y)) / 2
+        else:
+            Radius = math.hypot(Mm(Size.x), Mm(Size.y)) / 2   # conservative for non-round pads
         P = Pad.GetPosition()
         for L in CopperNames:
             if Pad.IsOnLayer(Board.GetLayerID(L)):
