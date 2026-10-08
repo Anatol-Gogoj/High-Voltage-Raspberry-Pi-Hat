@@ -3,6 +3,8 @@
 #   R27/R28 3.9k pull-ups on ID_SD/ID_SC to 3.3V, R29 1k WP pull-up with TP1 on WP, C6 100n decoupling,
 #   PWR_FLAG on +3V3. Header pins 1 (3.3V), 27 (ID_SD), 28 (ID_SC) lose their no-connect flags.
 # Connections are made by labels and power symbols placed exactly on pin endpoints (no wires).
+# ONE-SHOT: already applied to the rev B schematic; running it again would add a second copy.
+# Usage: python tools/revb/AddIdEeprom.py "HV Pi Hat.kicad_sch"
 import re
 import sys
 import uuid

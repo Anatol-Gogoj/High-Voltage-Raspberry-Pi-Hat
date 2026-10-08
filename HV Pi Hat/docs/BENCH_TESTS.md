@@ -1,7 +1,7 @@
 # Bench tests: HV Pi Hat rev B
 
-Measurements the design depends on that no datasheet or drawing settles. Results go in the linked
-GitHub issue; anything that changes the design goes into an ADR. Work at or below the stated voltages
+Measurements the design depends on that no datasheet or drawing settles. Results go in GitHub issue
+#7; anything that changes the design goes into an ADR. Work at or below the stated voltages
 with a current-limited supply, and discharge HV nodes before touching them.
 
 ## Before ordering rev B
