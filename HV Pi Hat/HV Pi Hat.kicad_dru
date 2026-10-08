@@ -1,17 +1,18 @@
-# Custom DRC rules — HV Pi Hat (5 kV DEA driver, conformal-coated)
+# Custom DRC rules: HV Pi Hat (5 kV DEA driver)
 # Auto-loaded by KiCad/pcbnew because this file is named "<project>.kicad_dru".
 #
-# HV nets live in netclass HV_5kV (rail + per-channel outputs + discharge nodes).
+# HV nets are in netclass HV_5kV (rail, per-channel outputs, discharge nodes), bound by the
+# .kicad_pro pattern /HV_* . Netclass HV_Return currently has no nets.
 #
-# REVISED 2026-06-08 (user/EE-approved, see docs/AUTONOMOUS_BUILD_LOG.md): at 85x56 the
-# 2-channel active-discharge HV routes only at ~2 mm spacing. The user (EE) selected the
-# CONFORMAL-COATED + FR4-ENCASED design: HV runs primarily on the INNER copper layers
-# (In1/In2), encased in FR4 (~20 kV/mm bulk strength -> safe at 2 mm for 5 kV), with the
-# outer-layer HV protected by conformal coating. Under IEC 60664 a coated/sealed surface
-# (effective pollution degree 1) drops the 5 kV creepage requirement to ~2 mm, matching the
-# 2 mm air clearance (creepage >= air, so 2 mm is the binding figure). => CREEPAGE held at
-# 2 mm. JLCPCB fab; thicker FR4 / alt material is an option if more inner-layer margin is
-# wanted. EE MUST verify 2 mm-coated meets the applicable standard before energizing.
+# Layer strategy (docs/adr/0002-hv-on-outer-layers.md): HV copper on F.Cu and B.Cu only; In1/In2
+# carry rule-area keepouts under the HV zone. The 2-D rules below cannot see through-board spacing;
+# check that with tools/HvInterlayer.py.
+#
+# PROVISIONAL VALUES. The 2 mm figures below have no accepted basis. IEC 60664-1:2020 gives 20 mm
+# creepage (Table F.5, pollution degree 1) and 5.7 mm clearance (Table F.8, 5 kV peak, inhomogeneous)
+# for a coated board; see docs/adr/0003-hv-spacing-basis.md. Rev A fails those by 354 violations.
+# These rules stay at 2 mm only so DRC keeps checking connectivity and relative spacing until
+# ADR-0003 is decided. Do not fabricate against them.
 (version 1)
 
 (rule "HV surface creepage"
@@ -22,16 +23,13 @@
 	(constraint clearance (min 2mm))
 	(condition "A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return'"))
 
-# The GND guard pour must keep the full 4 mm from HV (it is a large coplanar plane —
-# creepage, not the relaxed 2 mm air figure, governs it). This makes the pour the
-# 4 mm moat around every HV net while still allowing HV components 2 mm air + slots.
+# The GND guard pour keeps 4 mm from HV: it is a large coplanar plane next to every HV net.
 (rule "HV to GND pour"
 	(constraint clearance (min 4mm))
 	(condition "(A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return') && B.Type == 'Zone'"))
 
-# Vertical: nothing on an adjacent layer should sit under HV copper with the
-# thin 0.1 mm prepreg between F.Cu and In1. Hold inter-layer (physical) spacing
-# so HV on an outer layer can't face copper directly across the 0.1 mm gap.
+# HV copper keeps 1 mm from any drilled hole (hole_clearance is a same-layer copper-to-hole rule;
+# it does not check through-board spacing).
 (rule "HV interlayer hole/pad spacing"
 	(constraint hole_clearance (min 1mm))
 	(condition "A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return'"))

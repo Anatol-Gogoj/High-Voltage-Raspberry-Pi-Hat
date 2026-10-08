@@ -19,6 +19,12 @@ There is no cheap, small, **truly 5 kV-continuous-rated, board-mount** 2-pin con
 
 **Creepage target (IEC 60664-1):** for ~5 kV working voltage at **pollution degree 2**, required creepage is roughly **9-14 mm** depending on CTI material group; at **pollution degree 1** (achieved by a qualifying conformal coating + sealed enclosure) it drops to roughly **clearance-limited ~5-6 mm**. Your board already runs **4 mm clearance + creepage with conformal coat** on HV nets and a custom DRU. A **10.16 mm-pitch** block gives ~10 mm pole-to-pole creepage on its own — comfortably in range with the coating, and it's the smallest standard pitch that does. **7.62 mm (~7.6 mm creepage) is marginal — only acceptable coated and with a slot/conformal coat;** do not use it bare. Below 7.62 mm: no.
 
+> **Correction (2026-10-08):** the creepage figures in the paragraph above are not supported by the
+> standard. IEC 60664-1:2020 Table F.5 gives 20 mm at 5000 V for pollution degree 1 and 50 mm for
+> pollution degree 2, material group IIIa/IIIb. The board's spacing basis is open; see
+> `adr/0003-hv-spacing-basis.md`. On a coat-only basis a 10.16 mm terminal does not meet 20 mm
+> pole to pole by itself, which strengthens the case for the soldered lead ranked first below.
+
 ---
 
 ## Category 1 — HV-capable 2-position screw terminal blocks (the interim direction, done properly)
