@@ -65,6 +65,11 @@ rebuilds, so it runs on rev A or on an existing rev B);
 AutoRoute routes it (HV first, LV kept out of the pot) and pours GND. Then run DRC with
 `--schematic-parity`, `tools/HvInterlayer.py` and `tools/PotMargin.py`.
 
+## Pi 5 parts under the HAT
+    "/c/Program Files/KiCad/10.0/bin/python.exe" tools/revb/PiKeepouts.py "HV Pi Hat.kicad_pcb" --standoff 16 [--draw]
+Reports the room between each Pi 5 part (`RevBLayout.Pi5Parts`) and the HAT underside; `--draw`
+adds the outlines to User.2. See ADR-0005.
+
 ## Pot margin
     "/c/Program Files/KiCad/10.0/bin/python.exe" tools/PotMargin.py "HV Pi Hat.kicad_pcb"
 Smallest distance from HV copper to the pot edge (the `PotVoid_In1.Cu` rule area); ADR-0003 wants 3 mm.

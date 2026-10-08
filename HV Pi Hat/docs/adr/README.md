@@ -8,4 +8,5 @@ a new ADR that supersedes the old one, and the old one's status line points to i
 | [0001](0001-baseline-design-decisions.md) | Baseline design decisions (migrated from `DECISIONS.md`) | Accepted; rows partly superseded |
 | [0002](0002-hv-on-outer-layers.md) | HV on the outer layers, inner layers voided, thick stackup | Accepted |
 | [0003](0003-hv-spacing-basis.md) | HV spacing basis: encapsulate the HV zone | Accepted; prerequisites open |
-| [0004](0004-board-footprint.md) | Board footprint: target the standard HAT+ outline | Accepted as target; rev A does not meet it |
+| [0004](0004-board-footprint.md) | Board footprint: standard HAT outline (65 x 56.0 mm for a THT header) | Accepted; rev B meets it |
+| [0005](0005-mechanical-stack.md) | Mechanical stack: standoffs, GPIO header, Pi 5 parts underneath | Proposed |

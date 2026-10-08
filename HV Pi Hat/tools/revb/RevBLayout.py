@@ -2,8 +2,14 @@
 # J3/J4 are now the HV_LeadPair_P6.00mm footprint (pad 1 return, pad 2 HV).
 # Footprint origin and rotation follow KiCad: rotation -90 maps local (x, y) to board (X - y, Y + x).
 
-# HAT+ outline: 65 x 56.5 mm, left/top edges where rev A had them, 3 mm corners
-Outline = (117.5, 86.0, 182.5, 142.5, 3.0)
+# HAT outline for a through-hole GPIO header: 65 x 56.0 mm, holes 3.5 mm from every edge, 3 mm corners.
+# Legacy HAT drawing (github.com/raspberrypi/hats, hat-board-mechanical.pdf): "56.5mm FOR SMT STYLE
+# GPIO HEADER OTHERWISE 56.0mm FOR THROUGH HOLE HEADER"; the bottom holes are 3.5 from the bottom edge.
+Outline = (117.5, 86.0, 182.5, 142.0, 3.0)
+# Mounting-hole land: "MIN. 6.2mm and EITHER ISOLATED COPPER OR BARE BOARD" (same drawing)
+HoleLandDiameter = 6.2
+# Keep the Pi 5 PCIe FFC edge free so a flex notch stays possible (M.2 HAT+ notch, HAT+ spec Fig. 3)
+PcieNotch = (117.5, 103.0, 122.5, 121.0)
 
 # Pot (ADR-0003 interim): 3 mm beyond HV copper; notch radius around the H4 screw
 PotMargin = 3.0
@@ -24,9 +30,9 @@ Place = {
     "OR3": (144.0, 118.8, -90),  # CH1 discharge: pin3 HV_CH1_DIS, pin4 GND
     "OR4": (144.0, 130.3, -90),  # CH2 discharge: pin3 HV_CH2_DIS, pin4 GND
     # HV lead pairs: J3 vertical at the right edge (HV pad 2 at y 122.0 beside R1/R25, return below);
-    # J4 along the bottom edge (return pad 1 at x 164.0, HV pad 2 at x 170.0 beside R2)
+    # J4 along the bottom edge (return pad 1 at x 164.0, HV pad 2 at x 170.0 beside R2, 3 mm pot margin)
     "J3": (178.0, 128.0, 90),
-    "J4": (164.0, 138.2, 0),
+    "J4": (164.0, 137.8, 0),
     # HV resistors under U1, rotated 180 so pad1 (HV_CHx) is on the right
     "R1": (165.5, 121.0, 180),   # R_dis CH1: HV_CH1 / HV_CH1_DIS
     "R25": (165.5, 125.3, 180),  # R_safety CH1: HV_CH1 / GND
@@ -35,7 +41,7 @@ Place = {
     # Ferrite next to U1 pin 1 (VIN); the +5V bulk caps sit at the power entry by header pins 2/4
     # (ADR-0001: bulk stays on +5V, before the ferrite)
     "FB1": (177.0, 94.6, 0),
-    "C2": (121.0, 106.0, 90), "C3": (121.0, 110.0, 90), "C4": (121.0, 113.2, 90),
+    "C2": (124.6, 106.0, 90), "C3": (124.6, 110.0, 90), "C4": (124.6, 113.2, 90),
     # PGM stage, top-left
     "U2": (125.0, 97.5, 0), "R9": (128.5, 97.5, 90), "R10": (128.5, 100.8, 90), "C5": (128.0, 94.4, 0),
     "R7": (120.5, 98.0, 90), "R8": (120.5, 101.6, 90), "C1": (123.8, 101.4, 0),
@@ -57,3 +63,29 @@ Cluster(95.8, "Q3", "R6", "R17", "R19", "R11", "D1")    # OR1, GPIO_5
 Cluster(107.3, "Q1", "R14", "R18", "R20", "R15", "D2")  # OR2, GPIO_26
 Cluster(118.8, "Q2", "R21", "R16", "R13")               # OR3, GPIO_6
 Cluster(130.3, "Q4", "R22", "R23", "R24")               # OR4, GPIO_16
+
+
+# Vertical budget between the Pi 5 and the HAT underside (tools/revb/PiKeepouts.py)
+Standoff = 16.0        # HAT+ spec ch. 7: "at least 15mm ... 16mm spacers are ideal"
+ThtProtrusion = 1.5    # assumed: THT leads trimmed to 1.5 mm below the HAT
+BottomPot = 3.0        # assumed: bottom pot thickness over the HV zone (covers the trimmed leads)
+
+# Pi 5 top-side parts, hole-referenced: Xh/Yh in mm from the centre of the hole nearest GPIO pin 1,
+# +X toward USB/Ethernet, +Y away from the GPIO header (board x = 121.0 + Xh, board y = 89.5 + Yh).
+# Heights above the Pi PCB. Sources: P5 = raspberry-pi-5-mechanical-drawing.pdf (RP-008347-DS-1),
+# AC = Active Cooler drawing RP-008187-DS-1, DOC = raspberrypi.com documentation. Extents marked "meas"
+# were measured from the official vector PDFs (the drawing says all dimensions are approximate).
+Pi5Parts = [
+    ("ActiveCooler", (-3.2, 2.8, 60.8, 46.0), 13.70, "AC 13.70 overall (pin tip to cap top); footprint meas"),
+    ("CoolerFan", (24.0, 4.5, 54.0, 34.5), 13.70, "AC 30 x 30 fan; position meas"),
+    ("PoE", (55.5, 40.5, 60.5, 45.5), 8.6, "P5 centre (58, 43); pins 8.6 meas"),
+    ("FPC_A", (43.7, 36.3, 46.7, 51.8), 4.1, "P5 side view 4.1; extent meas"),
+    ("FPC_B", (50.0, 36.3, 52.9, 51.8), 4.1, "P5 side view 4.1; extent meas"),
+    ("UART", (26.2, 47.0, 31.5, 50.2), 4.4, "P5 4.4; location third-party"),
+    ("RTC_J5", (13.5, 46.3, 17.5, 49.2), 4.5, "DOC location; meas"),
+    ("PCIe_FFC", (-2.3, 17.3, 0.7, 27.8), 4.2, "DOC location; meas"),
+    ("FanConn", (61.7, -2.5, 64.7, 3.5), 4.5, "DOC location; meas"),
+    ("RJ45", (63.3, 34.3, 84.5, 50.3), 14.0, "P5; meas"),
+    ("USB_A_1", (67.2, -1.8, 84.8, 12.8), 15.9, "P5; meas"),
+    ("USB_A_2", (67.2, 16.2, 84.8, 30.8), 15.9, "P5; meas"),
+]

@@ -54,7 +54,7 @@ while Index < len(Lines):
     Joined = Nl.join(Block)
     Kind = M.group(1)
     Drop = Kind in ("segment", "via", "arc", "zone")
-    if Kind.startswith("gr_") and ('(layer "Edge.Cuts")' in Joined or '(layer "User.Drawings")' in Joined or '(layer "User.1")' in Joined):
+    if Kind.startswith("gr_") and any('(layer "%s")' % L in Joined for L in ("Edge.Cuts", "User.Drawings", "User.1", "User.2")):
         Drop = True
     Ref = re.search(r'\(property "Reference" "([^"]+)"', Joined) if Kind == "footprint" else None
     if Ref and Ref.group(1) in ("J3", "J4"):
@@ -165,6 +165,35 @@ for LayerName in ("In1.Cu", "In2.Cu"):
     for (Ax, Ay) in Poly:
         Ol.Append(FromMm(Ax), FromMm(Ay))
     Board.Add(Z)
+
+# Mounting-hole lands: no copper within HoleLandDiameter (isolated land, HAT drawing)
+def RuleArea(Name, Points, Layers, Footprints=False):
+    Z = pcbnew.ZONE(Board)
+    Z.SetIsRuleArea(True)
+    Z.SetDoNotAllowTracks(True)
+    Z.SetDoNotAllowVias(True)
+    Z.SetDoNotAllowZoneFills(True)
+    Z.SetDoNotAllowPads(False)
+    Z.SetDoNotAllowFootprints(Footprints)
+    Ls = pcbnew.LSET()
+    for L in Layers:
+        Ls.AddLayer(Board.GetLayerID(L))
+    Z.SetLayerSet(Ls)
+    Z.SetZoneName(Name)
+    Ol = Z.Outline()
+    Ol.NewOutline()
+    for (Ax, Ay) in Points:
+        Ol.Append(FromMm(Ax), FromMm(Ay))
+    Board.Add(Z)
+
+
+AllCopper = ["F.Cu", "In1.Cu", "In2.Cu", "B.Cu"]
+for Ref in ("H1", "H2", "H3", "H4"):
+    Hx, Hy, _ = Layout.Place[Ref]
+    R = Layout.HoleLandDiameter / 2
+    RuleArea("HoleLand_" + Ref, [(Hx + R * math.cos(math.radians(A)), Hy + R * math.sin(math.radians(A))) for A in range(0, 360, 15)], AllCopper)
+Nx0, Ny0, Nx1, Ny1 = Layout.PcieNotch
+RuleArea("PcieNotch", [(Nx0, Ny0), (Nx1, Ny0), (Nx1, Ny1), (Nx0, Ny1)], AllCopper, Footprints=True)
 
 Board.Save(BoardPath)
 print("pot outline:", ", ".join("(%.1f, %.1f)" % P for P in Poly))

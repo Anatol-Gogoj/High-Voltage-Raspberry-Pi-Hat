@@ -1,6 +1,7 @@
 # ADR-0004: Board footprint: target the standard HAT+ outline
 
-- Status: Accepted 2026-10-08. Rev B (issue #6) meets the outline; rev A (85 x 56 mm) did not.
+- Status: Accepted 2026-10-08. Rev B (issue #6) meets the outline; rev A (85 x 56 mm) did not. The
+  placement study used 65 x 56.5 with the extra 0.5 mm on the wrong edge; rev B corrects it.
 - Deciders: Anatol Gogoj
 - Supersedes: the "Form factor 85 x 56 mm" row of ADR-0001
 - Related: ADR-0002 (layer strategy), ADR-0003 (spacing basis)
@@ -46,7 +47,11 @@ Rev A as built (measured from the board file 2026-10-08):
 
 ## Decision
 
-Target the 65 x 56.5 mm HAT+ outline with the standard hole pattern and 3 mm corners. Rev A stays
+Target the standard HAT outline with the standard hole pattern and 3 mm corners. For this board's
+through-hole GPIO header that is **65 x 56.0 mm**: the legacy HAT drawing reads "56.5mm FOR SMT STYLE
+GPIO HEADER OTHERWISE 56.0mm FOR THROUGH HOLE HEADER", with the bottom holes 3.5 mm from the bottom
+edge (the extra 0.5 mm of the SMT variant is on the header edge). Each mounting hole keeps a 6.2 mm
+land free of other copper ("MIN. 6.2mm and EITHER ISOLATED COPPER OR BARE BOARD"). Rev A stays
 85 x 56 mm as a prototype until a layout that meets the target and ADR-0003 exists.
 
 ## Consequences and the path to the standard outline

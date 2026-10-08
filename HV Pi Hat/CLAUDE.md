@@ -35,9 +35,10 @@ until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 
   once cut U2.2 and R8.1 off; check GND connectivity after any re-pour.
 - Order the PCB with the stackup named in ADR-0002 (JLC04201H-7628D), not the default.
 - Schematic edits = eeschema **GUI** (no schematic Python API). The **PCB is scriptable** via `pcbnew`.
-- The board is **rev B**: the standard **65 x 56.5 mm HAT+ outline** (ADR-0004), built from rev A by
+- The board is **rev B**: the standard **65 x 56.0 mm HAT outline** for a THT header (ADR-0004), built by
   `tools/revb/` (BuildRevB.py places, AutoRoute.py routes). J3/J4 are soldered HV lead pairs, not
-  terminals. LV signals stay out of the pot except over U1's LV pin row.
+  terminals. LV signals stay out of the pot except over U1's LV pin row. Standoff height and the
+  GPIO header are open (ADR-0005): the Pi 5 Active Cooler sits under the bottom pot.
 
 ## Conventions
 - Don't `git commit` / `push` unless asked. `render_*.png` / `drc_*.json` are git-ignored (regenerable).

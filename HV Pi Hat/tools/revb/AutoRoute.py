@@ -423,12 +423,12 @@ for (N, X, Y, C) in RoutedVias:
     V.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
     V.SetNet(Board.FindNet(N))
     Board.Add(V)
-# GND THT pads inside the pot: solid zone connection (traces nearby starve thermal spokes there)
+# GND THT pads inside the pot and on the GPIO header: solid zone connection (nearby traces starve spokes)
 for Fp in Board.GetFootprints():
     for Pad in Fp.Pads():
         if Pad.GetNetname() == "GND" and Pad.HasHole():
             J, I = Cell(Mm(Pad.GetPosition().x), Mm(Pad.GetPosition().y))
-            if 0 <= J < Ny and 0 <= I < Nx and InPot[J, I]:
+            if (0 <= J < Ny and 0 <= I < Nx and InPot[J, I]) or Fp.GetReference() == "GPIO1":
                 Pad.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
 # GND pours on both outer faces (the .kicad_dru keeps them 4 mm from HV)
 Edge = Board.GetBoardEdgesBoundingBox()
