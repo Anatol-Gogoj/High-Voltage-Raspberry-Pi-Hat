@@ -1,0 +1,34 @@
+# Custom DRC rules: HV Pi Hat (5 kV DEA driver)
+# Auto-loaded by KiCad/pcbnew because this file is named "<project>.kicad_dru".
+#
+# HV nets are in netclass HV_5kV (rail, per-channel outputs, discharge nodes), bound by the
+# .kicad_pro pattern /HV_* . Netclass HV_Return currently has no nets.
+#
+# Layer strategy (docs/adr/0002-hv-on-outer-layers.md): HV copper on F.Cu and B.Cu only; In1/In2
+# carry rule-area keepouts under the HV zone. The 2-D rules below cannot see through-board spacing;
+# check that with tools/HvInterlayer.py.
+#
+# INTERIM VALUES. ADR-0003 (docs/adr/0003-hv-spacing-basis.md) puts the HV zone in potting on both
+# faces (IEC 60664-3 type 2). The 2 mm figures below are the interim layout rule until the type 2
+# minimum spacings (IEC 60664-3 Table 1) are in hand. A coat-only board would need 20 mm creepage
+# and 5.7 mm clearance (IEC 60664-1:2020 Tables F.5 and F.8). Do not fabricate against these.
+(version 1)
+
+(rule "HV surface creepage"
+	(constraint creepage (min 2mm))
+	(condition "A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return'"))
+
+(rule "HV air clearance"
+	(constraint clearance (min 2mm))
+	(condition "A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return'"))
+
+# The GND guard pour keeps 4 mm from HV: it is a large coplanar plane next to every HV net.
+(rule "HV to GND pour"
+	(constraint clearance (min 4mm))
+	(condition "(A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return') && B.Type == 'Zone'"))
+
+# HV copper keeps 1 mm from any drilled hole (hole_clearance is a same-layer copper-to-hole rule;
+# it does not check through-board spacing).
+(rule "HV interlayer hole/pad spacing"
+	(constraint hole_clearance (min 1mm))
+	(condition "A.NetClass == 'HV_5kV' || A.NetClass == 'HV_Return'"))
