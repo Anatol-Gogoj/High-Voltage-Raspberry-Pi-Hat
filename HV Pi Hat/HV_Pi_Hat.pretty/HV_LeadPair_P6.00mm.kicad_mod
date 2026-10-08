@@ -1,0 +1,171 @@
+(footprint "HV_LeadPair_P6.00mm"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Soldered HV lead pair for a potted zone: pad 1 return, pad 2 HV, 6.0 mm pitch, 1.2 mm drill")
+	(tags "HV lead wire solder pot")
+	(property "Reference" "REF**"
+		(at 3 -2.6 0)
+		(layer "F.SilkS")
+		(uuid "9e842f5e-3625-4526-8c93-2c9fc1129bd1")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Value" "HV_LeadPair_P6.00mm"
+		(at 3 2.6 0)
+		(layer "F.Fab")
+		(uuid "29dc95fe-3079-425c-85eb-43a1ff44d1ce")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e0e6795b-81d2-4bb5-af5b-fe196def022a")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6f60b60a-8386-4b99-9019-062189bc2d9b")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.45 -1.45)
+		(end 7.45 -1.45)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "799a4b0b-5925-44b4-887f-850569c58956")
+	)
+	(fp_line
+		(start -1.45 1.45)
+		(end -1.45 -1.45)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "8e50e711-f847-4b95-98a4-0c75e97118e3")
+	)
+	(fp_line
+		(start 7.45 -1.45)
+		(end 7.45 1.45)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "3a39bc56-0262-4d61-8ec2-624de5f9ec8b")
+	)
+	(fp_line
+		(start 7.45 1.45)
+		(end -1.45 1.45)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "2b67ee34-2d45-4b74-839c-fd413dba86da")
+	)
+	(fp_line
+		(start -1.2 -1.2)
+		(end 7.2 -1.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "717d792e-c71f-4e9c-a610-a3b4d065cbab")
+	)
+	(fp_line
+		(start -1.2 1.2)
+		(end -1.2 -1.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "a0b4f65c-af9f-4111-a055-a6ee8792140c")
+	)
+	(fp_line
+		(start 7.2 -1.2)
+		(end 7.2 1.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "dc2213d9-7077-4604-9cef-7276abcba32e")
+	)
+	(fp_line
+		(start 7.2 1.2)
+		(end -1.2 1.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "325affb2-2419-4649-99e6-81653967f0bd")
+	)
+	(fp_text user "RTN"
+		(at 0 2.2 0)
+		(layer "F.SilkS")
+		(uuid "d39eb3b3-f27c-4de0-b47b-49a794cc77a4")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(fp_text user "HV"
+		(at 6 2.2 0)
+		(layer "F.SilkS")
+		(uuid "eb8aba5d-4676-456c-91a5-c937c1b46473")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 2.4 2.4)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d911757c-87d5-4401-b909-7eeadf352686")
+	)
+	(pad "2" thru_hole circle
+		(at 6 0)
+		(size 2.4 2.4)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7b09611f-5c55-4126-9745-c023b4383494")
+	)
+	(embedded_fonts no)
+)

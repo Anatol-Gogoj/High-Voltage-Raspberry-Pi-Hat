@@ -73,6 +73,47 @@ Prerequisites before fabrication:
    on a potted coupon or a first article.
 4. Name the reviewing EE.
 
+## Potting compound (prerequisite 2)
+
+**Decided 2026-10-08 (Anatol): Sylgard 184, primed. Scope cut: this board is a lab instrument, not
+flight hardware, so outgassing is not a selection criterion.** If the board ever has to sit inside a
+vacuum or thermal-vacuum chamber, revisit with the space-grade shortlist below.
+
+Sylgard 184 (Dow Corning form 06-1009-01): dielectric strength "540" V/mil (21.2 kV/mm), dielectric
+constant 2.7 at 100 Hz, volume resistivity 1.2 x 10^14 ohm-cm, mixed viscosity 3,900 cP (flows under
+U1 more easily than 93-500), service range "-45 to 200°C". "In applications requiring adhesion,
+priming is required." Its datasheet lists cure inhibitors (organotin and other organometallic
+compounds, among others), so boards must be clean before pouring. It is the same silicone the lab
+already uses for DEA films. Electrically it is as good as 93-500; it fails only the NASA outgassing
+screen as supplied (below), which no longer applies.
+
+Space-grade shortlist considered first (2026-10-08), set aside on cost: DOWSIL 93-500 Space Grade
+(about $1,300 per 110 g kit), fallback NuSil CV-2500.
+
+| | DOWSIL 93-500 | NuSil CV-2500 | Stycast 2850FT + CAT 23LV |
+|---|---|---|---|
+| Chemistry | addition-cure silicone elastomer | addition-cure silicone elastomer | filled epoxy |
+| Dielectric strength | "475 volts/mil" (19 kV/mm) | not in the TDS | 14.8 kV/mm |
+| Dk | 2.6 at 100 Hz | not in the TDS | 5.36 at 1 MHz |
+| Mixed viscosity | 8,100 cP | Part A 8,000 cP | 5,600 cP |
+| Cure | 24 h at 25 C or 10 min at 100 C | 15 min at 150 C | 16 to 24 h at 25 C |
+| Low temperature | TDS "-45 to 200°C" long term (2001 sheet: -115 C) | DMA Tg -130 C | Tg 40 to 55 C |
+| ASTM E595 TML/CVCM | TDS 0.14/0.01; NASA DB 2018 lots 0.08/0.01 and 0.08/0.02 | TDS 0.05/0.01; NASA DB 0.06/0.01 | NASA DB 0.53/0.01, 0.49/0.01 |
+| Primer | "priming will be required for many" (DC 1200 or P5200) | CF1-135 | none named |
+| Availability | Ellsworth, in stock, 110 g kit about $1,300 | 50 to 500 g kits, no stock found | DigiKey/Mouser |
+
+Sources: Dow TDS 11-1811-01 A and Form 10-951-01, NuSil CV-2500 Rev. B, Henkel Stycast 2850FT TDS,
+NASA GSFC outgassing database (etd.gsfc.nasa.gov/capabilities/outgassing-database). Ruled out as
+supplied by the NASA screen (CVCM 0.10 % or less): Sylgard 184 (0.92/0.40, 1.61/0.78) and RTV655
+(3.55/0.96); only devolatilized lots pass.
+
+Why 93-500: full electrical data, recent NASA entries, and stock. The bulk field is not the limit
+(5 kV over 3 mm is 1.7 kV/mm, about 11 times below 19 kV/mm); the interfaces are. Its low Dk helps:
+in a thin void across the field the void field is about the compound's Dk times the bulk field, 2.6x
+for 93-500 against 5.4x for the epoxy. The epoxy's Tg sits inside the operating range and it is rigid.
+About 15 g per board (both faces), so one 110 g kit covers a few boards plus test coupons. The cost
+is the main drawback; Anatol decides the purchase.
+
 ## Interim layout rules (until prerequisite 1 is done)
 
 These are working assumptions for placement and routing, not a qualified basis:

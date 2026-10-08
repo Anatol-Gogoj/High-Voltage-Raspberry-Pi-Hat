@@ -13,7 +13,9 @@ this directory. The KiCad 9 CLI cannot load the schematic.
 | `docs/TOOLING.md` | kicad-cli / pcbnew commands and KiCad 10 scripting gotchas |
 | `docs/BOM_SOURCED.md`, `fab/BOM.csv` | Sourced parts; BOM regenerated from the schematic |
 | `docs/HV_CONNECTOR_OPTIONS.md` | HV output termination study |
+| `docs/BENCH_TESTS.md` | Measurements the design depends on (opto CTR, lead polarity, Pi pin height, fail-safes) |
 | `datasheets/README.md` | Parts, verified specs, gotchas |
+| `tools/` | `HvInterlayer.py` and `PotMargin.py` (HV checks DRC cannot do), `revb/` (rev B build), `MakeLeadPair.py` |
 | `docs/AUTONOMOUS_BUILD_LOG.md` | Historical log of the June 2026 build pass. Where it disagrees with an ADR, the ADR wins |
 
 ## 30-second orientation
@@ -26,7 +28,10 @@ until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 
 `HV Pi Hat.kicad_dru`.
 
 ## Top gotchas (don't relearn these the hard way)
-- OPTO-100 CTR is about **0.15 %**, so the opto-LED resistors are **51 Ohm** (not 200 Ohm).
+- OPTO-100 CTR is **0.15 % above a ~40 mA threshold** (datasheet graph): opto-LED resistors are
+  **15 Ohm 1206** (~110 mA), not 51 Ohm (ADR-0006, bench test T1).
+- OPTO-100 HV leads are polarized: RED (cathode) to the higher-potential pad 3. Reversed, the
+  photodiode conducts with no light (`docs/BENCH_TESTS.md` T2).
 - SMHV **`ILIMIT` (pin 7) MUST tie to 5 V**, or the module sources almost no current.
 - `MHR0317SA107F70` = **100 MOhm** (the old "50 M" label was wrong).
 - The 1 GOhm safety bleeders R25/R26 are **populated** by default (fail-safe when unpowered).
@@ -34,7 +39,11 @@ until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 
   once cut U2.2 and R8.1 off; check GND connectivity after any re-pour.
 - Order the PCB with the stackup named in ADR-0002 (JLC04201H-7628D), not the default.
 - Schematic edits = eeschema **GUI** (no schematic Python API). The **PCB is scriptable** via `pcbnew`.
-- Rev A is **85 x 56 mm**; the target is the standard 65 x 56.5 mm HAT+ outline (ADR-0004).
+- The board is **rev B**: the standard **65 x 56.0 mm HAT outline** for a THT header (ADR-0004), built by
+  `tools/revb/` (BuildRevB.py places, AutoRoute.py routes). J3/J4 are soldered HV lead pairs, not
+  terminals. LV signals stay out of the pot except over U1's LV pin row. **20 mm standoffs**
+  (ADR-0005): the Pi 5 Active Cooler sits under the bottom pot. The GPIO header for 20 mm is not
+  yet chosen.
 
 ## Conventions
 - Don't `git commit` / `push` unless asked. `render_*.png` / `drc_*.json` are git-ignored (regenerable).

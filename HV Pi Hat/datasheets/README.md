@@ -17,6 +17,11 @@ Local copies of datasheets for the key parts in this design. Pulled 2026-06-05.
    - To reach **5 kV** across a **100 MΩ** bleeder you need Iout ≥ 50 µA → **I_LED ≥ ~33 mA** → opto-LED resistor (R3/R4) ≈ **50–60 Ω**, *not* the present 200 Ω.
    - With the present **200 Ω** (I_LED ≈ 10 mA → Iout ≈ 15 µA) the output is clamped at only **~1.5 kV**. **R3/R4 must be reduced to hit the full voltage** (TBD once final max-V target is set; design is "variable to 5 kV").
 
+   > **Correction (2026-10-08):** the datasheet's "Current Transfer Ratio (Iin vs Iout)" graph is not
+   > proportional: output is about 0 at 40 mA LED current and rises 0.15 % above that, so ~38 mA
+   > (51 Ω) gives little or no output. Rev B uses 15 Ω (~110 mA); see `docs/adr/0006-opto-led-drive.md`
+   > and bench test T1. The 100 MΩ-bleeder argument above predates active discharge: the standing
+   > load is now the 1 GΩ bleeder.
 3. **SMHV0550 control needs attention:** Program (pin 3) wants a 0–5 V analog level — the Pi has no DAC, so this needs a filtered PWM or an external DAC. Ilimit (pin 7) should be tied to 5 V (disable) or driven 0–1 V. Verify both are wired. Vmon/Imon (0–1 V) can feed an ADC for telemetry.
 
 4. **Input filtering:** the module switches at 45–80 kHz and draws up to ~350 mA pulsed — add input bulk capacitance + an LC/ferrite on its 5 V feed, and budget ~0.5 A total from the Pi 5 V rail (module + 2 opto LEDs + indicators).
