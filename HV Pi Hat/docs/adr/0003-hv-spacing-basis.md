@@ -73,9 +73,22 @@ Prerequisites before fabrication:
    on a potted coupon or a first article.
 4. Name the reviewing EE.
 
-## Potting compound (prerequisite 2): shortlist, 2026-10-08
+## Potting compound (prerequisite 2)
 
-Recommended: **DOWSIL 93-500 Space Grade Encapsulant, primed.** Fallback: NuSil CV-2500.
+**Decided 2026-10-08 (Anatol): Sylgard 184, primed. Scope cut: this board is a lab instrument, not
+flight hardware, so outgassing is not a selection criterion.** If the board ever has to sit inside a
+vacuum or thermal-vacuum chamber, revisit with the space-grade shortlist below.
+
+Sylgard 184 (Dow Corning form 06-1009-01): dielectric strength "540" V/mil (21.2 kV/mm), dielectric
+constant 2.7 at 100 Hz, volume resistivity 1.2 x 10^14 ohm-cm, mixed viscosity 3,900 cP (flows under
+U1 more easily than 93-500), service range "-45 to 200°C". "In applications requiring adhesion,
+priming is required." Its datasheet lists cure inhibitors (organotin and other organometallic
+compounds, among others), so boards must be clean before pouring. It is the same silicone the lab
+already uses for DEA films. Electrically it is as good as 93-500; it fails only the NASA outgassing
+screen as supplied (below), which no longer applies.
+
+Space-grade shortlist considered first (2026-10-08), set aside on cost: DOWSIL 93-500 Space Grade
+(about $1,300 per 110 g kit), fallback NuSil CV-2500.
 
 | | DOWSIL 93-500 | NuSil CV-2500 | Stycast 2850FT + CAT 23LV |
 |---|---|---|---|
