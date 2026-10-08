@@ -37,9 +37,19 @@ with a current-limited supply, and discharge HV nodes before touching them.
 
 ## On the first article
 
-### T5. Potting qualification (ADR-0003 prerequisite 3)
-- Placeholder: DC withstand voltage, duration and partial-discharge limit come from IEC 60664-3
-  once the standard is in hand. Run on a potted coupon or the first article.
+### T5. Potting qualification (ADR-0003 prerequisite 3; compound DOWSIL 93-500, primed)
+- DC withstand voltage, duration and partial-discharge limits come from IEC 60664-3 once the
+  standard is in hand. Run on potted coupons and the first article.
+- Adhesion: coupons with the board's actual solder mask, primed and unprimed; peel test, look for
+  cohesive failure (the Dow sheet's stated aim).
+- Cure inhibition: Dow lists "some solder flux residues" as inhibitors. Clean, then check the
+  interface for uncured material.
+- Voids under U1 (its HV pin is under the module body): pour under vacuum, section one sample.
+- Thermal cycling to the coldest planned temperature (Dow warrants -45 C long term) and a thermal
+  vacuum run; DC withstand and PD inception before and after (rising PD means delamination). PD also
+  at stratospheric pressure.
+- Outgassing of the cured primer plus potting stack (primer films are high TML in the NASA database),
+  or a vacuum bake of the board.
 
 ### T6. SoC temperature with the HAT fitted (ADR-0005)
 - The Active Cooler's fan inlet sits about 3.3 mm under the bottom pot.
