@@ -3,6 +3,8 @@
     "3dviewports": [],
     "design_settings": {
       "defaults": {
+        "apply_defaults_to_fp_barcodes": false,
+        "apply_defaults_to_fp_dimensions": false,
         "apply_defaults_to_fp_fields": false,
         "apply_defaults_to_fp_shapes": false,
         "apply_defaults_to_fp_text": false,
@@ -52,40 +54,7 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [
-        [
-          "clearance|151500000|137000000|3458798a-4531-4e03-91fe-eb7dfb1b0cf8|f4c634b4-e8c6-4fb6-a80d-0f13bef97122",
-          ""
-        ],
-        [
-          "clearance|152750000|136995000|3458798a-4531-4e03-91fe-eb7dfb1b0cf8|81825414-a99b-4e09-a89b-463b2c7cc767",
-          ""
-        ],
-        [
-          "clearance|154000000|137000000|81825414-a99b-4e09-a89b-463b2c7cc767|f3aa1eda-1464-4031-876e-0d8d1d3d7cc0",
-          ""
-        ],
-        [
-          "clearance|157088000|133088000|5768ef23-2931-41c0-8779-d9fe0e30f170|e0bd357e-3b8e-4a18-8014-bae2a578a27e",
-          ""
-        ],
-        [
-          "clearance|163500000|137000000|2d6862b5-c867-42ec-9063-7096755b3e16|96059f9a-4d3e-4feb-ac21-c4f98b697189",
-          ""
-        ],
-        [
-          "clearance|164750000|137000000|d3fd987c-576e-4e8b-8bca-92905b179478|96059f9a-4d3e-4feb-ac21-c4f98b697189",
-          ""
-        ],
-        [
-          "clearance|166000000|134500000|8de2da24-b9c5-499c-a0de-c771b3f10709|d3fd987c-576e-4e8b-8bca-92905b179478",
-          ""
-        ],
-        [
-          "clearance|166000000|137000000|4be3282b-5ff7-4bf8-8e9f-48ee3c11f2e1|d3fd987c-576e-4e8b-8bca-92905b179478",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -104,6 +73,7 @@
         "extra_footprint": "warning",
         "footprint": "error",
         "footprint_filters_mismatch": "ignore",
+        "footprint_symbol_field_mismatch": "warning",
         "footprint_symbol_mismatch": "warning",
         "footprint_type_mismatch": "ignore",
         "hole_clearance": "error",
@@ -121,6 +91,7 @@
         "mirrored_text_on_front_layer": "warning",
         "missing_courtyard": "ignore",
         "missing_footprint": "warning",
+        "missing_tuning_profile": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
         "npth_inside_courtyard": "ignore",
@@ -140,9 +111,12 @@
         "too_many_vias": "error",
         "track_angle": "error",
         "track_dangling": "warning",
+        "track_not_centered_on_via": "ignore",
+        "track_on_post_machined_layer": "error",
         "track_segment_length": "error",
         "track_width": "error",
         "tracks_crossing": "error",
+        "tuning_profile_track_geometries": "ignore",
         "unconnected_items": "error",
         "unresolved_variable": "error",
         "via_dangling": "warning",
@@ -576,7 +550,7 @@
       },
       {
         "bus_width": 30,
-        "clearance": 4.0,
+        "clearance": 2.0,
         "name": "HV_5kV",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 3,
@@ -587,7 +561,7 @@
       },
       {
         "bus_width": 30,
-        "clearance": 4.0,
+        "clearance": 2.0,
         "name": "HV_Return",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2,
@@ -640,51 +614,15 @@
       "version": 5
     },
     "net_colors": null,
-    "netclass_assignments": {
-      "+5V": [
-        "5V_Power_Light"
-      ],
-      "/<NO NET>": [
-        "HV_5kV"
-      ],
-      "Net-(GPIO1-GPIO_1)": [
-        "Signal"
-      ],
-      "Net-(GPIO1-GPIO_12)": [
-        "Signal"
-      ],
-      "Net-(GPIO1-GPIO_26)": [
-        "Signal"
-      ],
-      "Net-(J1-Pad2)": [
-        "HV_Return"
-      ],
-      "Net-(J2-Pad2)": [
-        "HV_Return"
-      ],
-      "Net-(J3-Pin_1)": [
-        "HV_Return"
-      ],
-      "Net-(J4-Pin_1)": [
-        "HV_Return"
-      ],
-      "Net-(J4-Pin_2)": [
-        "HV_5kV"
-      ],
-      "Net-(OR1-HVIN)": [
-        "HV_5kV"
-      ],
-      "Net-(OR2-HVOUT)": [
-        "HV_5kV"
-      ],
-      "unconnected-(U1-HVOUT-Pad8)": [
-        "HV_5kV"
-      ]
-    },
+    "netclass_assignments": null,
     "netclass_patterns": [
       {
         "netclass": "Signal",
         "pattern": "/GPIO*"
+      },
+      {
+        "netclass": "HV_5kV",
+        "pattern": "/HV_*"
       }
     ]
   },
@@ -828,7 +766,7 @@
         "uuid": "425f3247-1bd7-4183-a2c3-fb59f31c6b53"
       }
     ],
-    "used_designators": "D2,#PWR4-19,U2,R7-20,C1-4,FB1,Q1,Q3",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [

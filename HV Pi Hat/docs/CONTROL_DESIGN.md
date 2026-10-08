@@ -11,7 +11,7 @@ indicators = **parallel** branches off each MOSFET · **active charge AND discha
           │
    [OR_chg] HVIN→HVOUT ──┬──────────────┬───────── J pin2 (HV+) → DEA(+)
                          │              │
-                    R_dis 100M     R_safety 1G (DNP, always-on fail-safe)
+                    R_dis 100M     R_safety 1G (populated, always-on fail-safe)
                          │              │
                   [OR_dis] HVIN         │
                   [OR_dis] HVOUT ───────┴──── GND ;  J pin1 → GND → DEA(−)
@@ -27,7 +27,7 @@ indicators = **parallel** branches off each MOSFET · **active charge AND discha
 - **Hold:** both optos off → DEA holds (slow bleed only through R_safety).
 - **Discharge:** assert GPIO_dis → OR_dis conducts → DEA dumps through R_dis to GND.
 - `R_dis` 100 MΩ → ~100 ms dump for <1 nF; drop to ~10 MΩ for a faster (~10 ms, opto-limited) dump.
-- `R_safety` ~1 GΩ (Murata MHR0317SA108F70) → τ≈1 s; fail-safe bleed when unpowered. DNP if undesired.
+- `R_safety` ~1 GΩ (Murata MHR0317SA108F70) → τ≈1 s; fail-safe bleed when unpowered. Populated by default; DNP only if a passive bleed is unwanted (finding F-9).
 - Opto = HVM OPTO-100 (10 kV, CTR 0.15%); `R_opto_*` 51 Ω → I_LED≈38 mA → Iout≈57 µA (≥50 µA needed for 5 kV into 100 MΩ).
 
 ## Shared: HV setpoint (PGM) — full 0–5 kV
@@ -55,5 +55,5 @@ GPIO12/PWM0 ─ R 10k ─┬──────────┬─ V+ op-amp (RRIO
 
 ## BOM vs. current
 Add: 2× OPTO-100 (discharge), 2× TN0610 (discharge), 2× 51Ω + 2× 100Ω + 2× 10k (discharge driver),
-1× op-amp + RC/feedback/decoupling, 2× R_safety 1GΩ (DNP). Reuse R1/R2 (100 MΩ) as R_dis.
+1× op-amp + RC/feedback/decoupling, 2× R_safety 1GΩ (populated). Reuse R1/R2 (100 MΩ) as R_dis.
 Change: R3/R4 200→51Ω (opto charge), R5/R6 300→470Ω (indicator). Optional: 2× discharge indicators.

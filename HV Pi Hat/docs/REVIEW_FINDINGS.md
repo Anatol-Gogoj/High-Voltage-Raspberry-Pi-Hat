@@ -1,7 +1,8 @@
 # HV Pi Hat — design review findings (2026-06-05)
 
-> Status: these issues are **resolved in `CONTROL_DESIGN.md`**; schematic implementation is tracked in
-> `EESCHEMA_TODO.md`. Kept as the record of *why* the redesign was made.
+> Status: these issues are **resolved in `CONTROL_DESIGN.md`** and implemented in the schematic
+> (ERC 0 errors). The "Decisions pending" list at the end was answered in
+> `adr/0001-baseline-design-decisions.md`. Kept as the record of *why* the redesign was made.
 
 Source: KiCad netlist + datasheets (see `datasheets/`). Architecture concept is sound
 (SMHV0550 5 kV/200 µA module → per-channel OPTO-100 photo-coupler as charge switch →
