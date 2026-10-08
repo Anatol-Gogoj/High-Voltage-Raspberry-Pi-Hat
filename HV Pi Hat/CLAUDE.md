@@ -38,8 +38,8 @@ until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 
 
 ## Conventions
 - Don't `git commit` / `push` unless asked. `render_*.png` / `drc_*.json` are git-ignored (regenerable).
-- No fabrication outputs are committed until ADR-0003 is accepted and a human EE has reviewed the
-  board (`fab/README.md`).
+- No fabrication outputs are committed until the ADR-0003 prerequisites are done and a human EE has
+  reviewed the board (`fab/README.md`).
 - Session state and next steps live outside the repo (the PR body for a branch); do not add status
   or session-log files here.
 - kicad-cli: `/c/Program Files/KiCad/10.0/bin/kicad-cli.exe`; KiCad python (`pcbnew`): same dir, `python.exe`.
