@@ -50,8 +50,21 @@ deviates from the spec's 16 mm "ideal"; the spec allows it.
 ## Consequences
 
 - The GPIO header must be re-specified for a 20 mm gap (the PPTC202LFBN-RC gives about 11 mm).
-- The fan intake faces up and sits under the pot at about 2 to 3 mm. Whether that costs enough
-  cooling to matter is unknown; check SoC temperature under load with the HAT fitted.
+  Proposed: **Samtec ESQ-120-14-G-D** elevated socket (11.05 mm insulator, 12.19 mm tails, DigiKey
+  attributes). It is seated on the Pi's pins with its tails up through the HAT, and soldered with the
+  HAT already on its 20 mm standoffs, so the standoffs alone set the height. The tail tip lands
+  h_b + 23.24 mm above the Pi PCB (h_b = top of the Pi header's plastic base), always above the
+  HAT top at 22.0 mm; trim to about 1.5 mm after soldering. Pin engagement is the Pi pin length
+  above its base (h_p - h_b) and must be at least 3.68 mm (Samtec insertion range, read from
+  secondhand copies of the datasheet). The Pi 5 drawing gives neither h_b nor h_p: measure both on
+  the bench Pi before ordering. Raspberry Pi's 16 mm stacking header and the 13.5 mm tall
+  sockets under-engage at 20 mm.
+- GPIO1 is drawn as a top-side pin header. The copper is right for any of these parts, but the
+  socket body sits on the underside, so the footprint should become a bottom-side socket before
+  assembly drawings are made.
+- The fan intake faces up and sits under the pot with 3.3 mm of room in the worst case (more if the
+  cooler is lower than its 13.70 mm overall figure). Whether that costs enough cooling to matter is
+  unknown; check SoC temperature under load with the HAT fitted.
 - Camera/display flex access with the HAT fitted is not provided: those connectors sit under the HV
   resistor block, which a cutout like the M.2 HAT+'s would destroy. The left edge is kept free of
   parts and copper (`PcieNotch` in `tools/revb/RevBLayout.py`) so a PCIe flex notch stays possible.
