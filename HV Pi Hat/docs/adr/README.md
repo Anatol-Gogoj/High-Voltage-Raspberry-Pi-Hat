@@ -9,4 +9,4 @@ a new ADR that supersedes the old one, and the old one's status line points to i
 | [0002](0002-hv-on-outer-layers.md) | HV on the outer layers, inner layers voided, thick stackup | Accepted |
 | [0003](0003-hv-spacing-basis.md) | HV spacing basis: encapsulate the HV zone | Accepted; prerequisites open |
 | [0004](0004-board-footprint.md) | Board footprint: standard HAT outline (65 x 56.0 mm for a THT header) | Accepted; rev B meets it |
-| [0005](0005-mechanical-stack.md) | Mechanical stack: standoffs, GPIO header, Pi 5 parts underneath | Proposed |
+| [0005](0005-mechanical-stack.md) | Mechanical stack: 20 mm standoffs, GPIO header, Pi 5 parts underneath | Accepted; header not yet chosen |

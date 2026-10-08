@@ -66,7 +66,7 @@ Cluster(130.3, "Q4", "R22", "R23", "R24")               # OR4, GPIO_16
 
 
 # Vertical budget between the Pi 5 and the HAT underside (tools/revb/PiKeepouts.py)
-Standoff = 16.0        # HAT+ spec ch. 7: "at least 15mm ... 16mm spacers are ideal"
+Standoff = 20.0        # ADR-0005: 20 mm (HAT+ spec: 16 mm ideal, "even larger" with underside parts)
 ThtProtrusion = 1.5    # assumed: THT leads trimmed to 1.5 mm below the HAT
 BottomPot = 3.0        # assumed: bottom pot thickness over the HV zone (covers the trimmed leads)
 

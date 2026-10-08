@@ -1,6 +1,6 @@
 # ADR-0005: Mechanical stack: standoff height, GPIO header, and the Pi 5 parts underneath
 
-- Status: Proposed 2026-10-08. Needs Anatol's decision and one bench measurement.
+- Status: Accepted 2026-10-08 (Anatol): 20 mm standoffs.
 - Deciders: Anatol Gogoj
 - Related: ADR-0003 (bottom-face pot), ADR-0004 (HAT outline)
 
@@ -40,13 +40,16 @@ header has to be re-specified whatever the standoff decision is.
 3. **Passive heatsink instead of the Active Cooler** (the case heatsink is 4 mm). Clears easily at
    16 mm, at the cost of CPU cooling headroom.
 
-## Recommendation
+## Decision
 
-Measure the Active Cooler's top above the Pi PCB on the bench Pi first. If it is 12.0 mm or less, take
-option 1; otherwise take option 2. In both cases the GPIO header needs a part chosen for that gap.
+Option 2: **20 mm board-to-board standoffs**, with a GPIO header stack chosen to give exactly that gap.
+This clears the worst-case Active Cooler height by 3.3 mm without needing the bench measurement, and
+follows the HAT+ spec's advice to use larger spacers when the HAT has underside components. It
+deviates from the spec's 16 mm "ideal"; the spec allows it.
 
 ## Consequences
 
+- The GPIO header must be re-specified for a 20 mm gap (the PPTC202LFBN-RC gives about 11 mm).
 - The fan intake faces up and sits under the pot at about 2 to 3 mm. Whether that costs enough
   cooling to matter is unknown; check SoC temperature under load with the HAT fitted.
 - Camera/display flex access with the HAT fitted is not provided: those connectors sit under the HV
