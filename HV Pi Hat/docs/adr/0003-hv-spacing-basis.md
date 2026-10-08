@@ -1,7 +1,7 @@
 # ADR-0003: HV spacing basis
 
-- Status: Proposed 2026-10-08. Needs Anatol's decision and a qualified EE's sign-off. Until then
-  the board's 2 mm rules are provisional and the board must not be fabricated.
+- Status: Accepted 2026-10-08 (Anatol): option 2, encapsulate the HV zone. Fabrication stays
+  blocked until the prerequisites under "Decision" are done and a qualified EE has signed off.
 - Deciders: Anatol Gogoj (owner), reviewing EE (to be named)
 - Supersedes: the "HV spacing" row of ADR-0001 (4 mm, then relaxed to 2 mm on 2026-06-08)
 - Related: ADR-0002 (layer strategy), ADR-0004 (footprint)
@@ -57,18 +57,39 @@ order of 20 mm between HV nodes, more than a third of the board's 56 mm height.
    classed as functional depends on whether it is accessible: the DEA and its leads are outside the
    board, so this needs its own analysis under IEC 61010-1 clause 6. Weakest of the three.
 
-## Recommendation
+## Decision
 
-Option 2. It is the only sourced route that keeps the board near the standard HAT+ outline
-(ADR-0004) and does not rest on an unsourced 2 mm figure. Before accepting it:
+Option 2: encapsulate the HV zone (IEC 60664-3 type 2 protection, insulation treated as solid
+insulation) and qualify it by test. It is the only sourced route that keeps the board near the
+standard HAT+ outline (ADR-0004) without resting on an unsourced spacing figure.
+
+Prerequisites before fabrication:
 
 1. Get IEC 60664-3 Table 1 (type 2 minimum spacings) from the standard itself and set the DRC rules
-   to it for the potted zone.
+   for the potted zone to it.
 2. Pick a potting compound with a published dielectric strength and, given the extreme-environment
    work, a published outgassing figure.
 3. Define the qualification test: DC withstand voltage, duration, and partial-discharge threshold,
    on a potted coupon or a first article.
 4. Name the reviewing EE.
 
-Until this ADR is accepted, the 2 mm rules in `HV Pi Hat.kicad_dru` stay as a placeholder so DRC
-keeps checking connectivity and relative spacing, and `fab/README.md` keeps fabrication blocked.
+## Interim layout rules (until prerequisite 1 is done)
+
+These are working assumptions for placement and routing, not a qualified basis:
+
+- Every piece of HV copper (pads, tracks, vias, and the THT solder joints on the far face) sits
+  inside the potted zone. The THT HV parts put solder joints on B.Cu, so the zone is potted on
+  both faces.
+- Inside the zone: 2 mm minimum from HV copper to any other copper, the value rev A already meets.
+  Placement studies also report how the layout behaves at 3 mm.
+- The pot edge sits at least 3 mm outside any HV copper on both faces. HV leaves the zone only as
+  insulated wire (the DEA leads), never as copper on the board surface. This rules out the J3/J4
+  screw terminals: a terminal inside the pot cannot be used, and one outside it puts HV copper on
+  an open surface. The outputs become soldered HV leads with strain relief, the first choice in
+  `docs/HV_CONNECTOR_OPTIONS.md`.
+- Copper that is not HV may sit inside the zone; the opto LED pins and the module's LV pins do.
+- The bottom-face pot must stay clear of the Pi 5 below. HAT+ recommends 16 mm standoffs; the
+  bottom pot height budget is not yet known.
+
+`HV Pi Hat.kicad_dru` keeps the 2 mm rules until prerequisite 1 replaces them, and
+`fab/README.md` keeps fabrication blocked.

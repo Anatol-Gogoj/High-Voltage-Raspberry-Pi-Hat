@@ -21,8 +21,9 @@ SMHV0550 (5 kV / 200 uA module) makes the HV rail. Per channel: two HVM OPTO-100
 opto-couplers, one **charges** the DEA from the rail and one **discharges** it through 100 MOhm
 to GND, each driven by a TN0610 MOSFET off a Pi GPIO. A 1 GOhm bleeder sits across each output.
 HV setpoint = PWM, RC, op-amp (x1.55), module PGM. HV is on the outer layers only with the inner
-layers voided beneath it (ADR-0002). HV spacing is **2 mm, provisional** until ADR-0003 is
-accepted; enforced by `HV Pi Hat.kicad_dru`.
+layers voided beneath it (ADR-0002). The HV zone will be **potted** on both faces (ADR-0003);
+until the IEC 60664-3 type 2 spacings are in hand, the interim layout rule is 2 mm, enforced by
+`HV Pi Hat.kicad_dru`.
 
 ## Top gotchas (don't relearn these the hard way)
 - OPTO-100 CTR is about **0.15 %**, so the opto-LED resistors are **51 Ohm** (not 200 Ohm).

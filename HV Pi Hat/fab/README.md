@@ -3,7 +3,8 @@
 No Gerbers or drill files are committed, on purpose. This is a 5 kV board, and outputs stay out of
 the repo until all of these hold:
 
-1. ADR-0003 (HV spacing basis) is accepted and the board passes DRC against it.
+1. The ADR-0003 prerequisites are done (IEC 60664-3 Table 1 spacings in the DRC rules, potting
+   compound chosen, qualification test defined and passed) and the board passes DRC against them.
 2. A qualified human EE has reviewed the schematic and the HV layout, including the through-board
    distances from `tools/HvInterlayer.py`.
 3. The order specifies the ADR-0002 stackup (JLCPCB JLC04201H-7628D, 2.0 mm), not the default.

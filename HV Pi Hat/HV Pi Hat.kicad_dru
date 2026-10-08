@@ -8,11 +8,10 @@
 # carry rule-area keepouts under the HV zone. The 2-D rules below cannot see through-board spacing;
 # check that with tools/HvInterlayer.py.
 #
-# PROVISIONAL VALUES. The 2 mm figures below have no accepted basis. IEC 60664-1:2020 gives 20 mm
-# creepage (Table F.5, pollution degree 1) and 5.7 mm clearance (Table F.8, 5 kV peak, inhomogeneous)
-# for a coated board; see docs/adr/0003-hv-spacing-basis.md. Rev A fails those by 354 violations.
-# These rules stay at 2 mm only so DRC keeps checking connectivity and relative spacing until
-# ADR-0003 is decided. Do not fabricate against them.
+# INTERIM VALUES. ADR-0003 (docs/adr/0003-hv-spacing-basis.md) puts the HV zone in potting on both
+# faces (IEC 60664-3 type 2). The 2 mm figures below are the interim layout rule until the type 2
+# minimum spacings (IEC 60664-3 Table 1) are in hand. A coat-only board would need 20 mm creepage
+# and 5.7 mm clearance (IEC 60664-1:2020 Tables F.5 and F.8). Do not fabricate against these.
 (version 1)
 
 (rule "HV surface creepage"
