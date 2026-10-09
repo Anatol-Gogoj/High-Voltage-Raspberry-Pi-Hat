@@ -15,6 +15,7 @@ this directory. The KiCad 9 CLI cannot load the schematic.
 | `docs/HV_CONNECTOR_OPTIONS.md` | HV output termination study |
 | `docs/BENCH_TESTS.md` | Measurements the design depends on (opto CTR, lead polarity, Pi pin height, fail-safes) |
 | `datasheets/README.md` | Parts, verified specs, gotchas |
+| `firmware/` | HAT+ ID EEPROM settings, Device Tree overlay (Pi 5), install and flash scripts, boot-window notes |
 | `tools/` | `HvInterlayer.py` and `PotMargin.py` (HV checks DRC cannot do), `revb/` (rev B build), `MakeLeadPair.py` |
 | `docs/AUTONOMOUS_BUILD_LOG.md` | Historical log of the June 2026 build pass. Where it disagrees with an ADR, the ADR wins |
 

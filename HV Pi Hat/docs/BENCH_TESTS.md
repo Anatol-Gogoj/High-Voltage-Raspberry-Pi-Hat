@@ -59,6 +59,13 @@ with a current-limited supply, and discharge HV nodes before touching them.
 - Put the Pi in STANDBY (EEPROM `POWER_OFF_ON_HALT=1`, then `sudo halt`) with the HAT powered, and
   watch a full boot from cold.
 - Pass: the HV rail and both outputs stay at about 0 V throughout (no opto conducts, PGM stays low).
+- Also scope GPIO12 (header pin 32) and PGM from power-on until the overlay loads, once with no
+  `gpio=` line in `config.txt`. A pad pull-up on GPIO12 programs the rail to roughly 2.4 to 3.6 kV
+  in that window (`firmware/README.md`, "Boot window"). Record `pinctrl get 5,6,12,16,26` on a Pi 5
+  booted without the overlay to see the power-on pulls.
+- With the overlay installed: `pinctrl get 5,6,16,26` shows outputs driven low with pull-down, and
+  GPIO12 shows the PWM0 function. Kill a program holding a gate line high and confirm the line
+  drops (`pinctrl_rp1.persist_gpio_outputs=n`).
 
 ### T8. Bleed-down when unpowered (1 GOhm safety bleeders R25/R26)
 - Charge an output with a 1 nF load to about 1 kV, remove all power, record the decay.
@@ -70,4 +77,6 @@ with a current-limited supply, and discharge HV nodes before touching them.
 - PGM: HV rail against PWM duty (expect about 4.7 kV at full scale from the build log).
 - Charge and discharge time at 1 nF, 0 to 5 kV (ADR-0006 expects about 50 ms per edge).
 - Indicator LEDs follow the charge MOSFETs.
-- ID EEPROM: program it (ch. 3 of the HAT+ spec), confirm `/proc/device-tree/hat/` shows it.
+- ID EEPROM: program it with `firmware/scripts/flash-eeprom.sh` (TP1 held low), reboot, confirm
+  `/proc/device-tree/hat/product` and that the firmware applied the overlay: the node
+  `/proc/device-tree/axi/pcie@1000120000/rp1/gpio@d0000/hvdea_gates_off` exists.

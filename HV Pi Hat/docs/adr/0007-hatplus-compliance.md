@@ -37,6 +37,7 @@ Raspberry Pi HAT+ specification (RP-008281-DS-1) and the legacy HAT mechanical d
   pull-downs and PGM is held at 0 V by R8 (100 kOhm), so the HV module is programmed to 0 V and no
   opto conducts. Bench test T7 checks this.
 - The EEPROM must be programmed (product UUID, vendor and product strings, and a Device Tree overlay
-  name are required or recommended by ch. 3) before the board can be called a HAT+. The overlay that
-  configures GPIO5/6/16/26 and the GPIO12 PWM is a firmware task, not yet written.
+  name are required or recommended by ch. 3) before the board can be called a HAT+. The EEPROM
+  settings, the overlay that configures GPIO5/6/16/26 and the GPIO12 PWM, and the programming steps
+  are in `firmware/`.
 - Schematic parity: H1 to H4 remain board-only footprints (no schematic symbols), as in rev A.

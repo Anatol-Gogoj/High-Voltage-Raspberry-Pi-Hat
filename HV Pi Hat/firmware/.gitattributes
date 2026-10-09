@@ -1,0 +1,4 @@
+# Files used on the Pi must keep LF line endings (Windows clones use core.autocrlf=true)
+*.sh text eol=lf
+*.dts text eol=lf
+*.txt text eol=lf

@@ -1,0 +1,57 @@
+// robotincubator-hvdea-overlay.dts - Device Tree overlay for the HV Pi Hat (2-channel DEA driver).
+// Raspberry Pi 5 only (RP1 GPIO and PWM). The HAT+ ID EEPROM names this overlay, so the firmware
+// loads it at boot from /boot/firmware/overlays/robotincubator-hvdea.dtbo.
+//
+// GPIO map (docs/CONTROL_DESIGN.md):
+//   GPIO5  Ch1 charge     GPIO6  Ch1 discharge
+//   GPIO26 Ch2 charge     GPIO16 Ch2 discharge
+//   GPIO12 HV setpoint, PWM0 channel 0 (RP1 function table: GPIO12 = PWM0[0])
+//
+// What it does:
+// 1. Pin controller hog on rp1_gpio: drives the four MOSFET gate lines low as outputs and
+//    enables the pad pull-downs as soon as the RP1 pin controller probes. The group has no
+//    "function", so it sets pin config only and does not claim the pin mux; user space can
+//    still request the lines with libgpiod.
+// 2. Muxes GPIO12 to PWM0 channel 0 with the pad pull-down on, and enables rp1_pwm0. The
+//    channel stays disabled until user space enables it through the PWM sysfs interface.
+//
+// Before the kernel probes RP1 (a few seconds after power-on) the pins sit at their power-on
+// pulls. See firmware/README.md "Boot window" for what that means for this board.
+//
+// Build: dtc -@ -I dts -O dtb -o robotincubator-hvdea.dtbo robotincubator-hvdea-overlay.dts
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2712";
+
+	fragment@0 {
+		target = <&rp1_gpio>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&hvdea_gates_off>;
+
+			hvdea_gates_off: hvdea_gates_off {
+				pins = "gpio5", "gpio6", "gpio16", "gpio26";
+				output-low;
+				bias-pull-down;
+			};
+
+			hvdea_pgm_pwm: hvdea_pgm_pwm {
+				function = "pwm0";
+				pins = "gpio12";
+				bias-pull-down;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&rp1_pwm0>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&hvdea_pgm_pwm>;
+			status = "okay";
+		};
+	};
+};
